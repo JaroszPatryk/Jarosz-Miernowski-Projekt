@@ -1,6 +1,5 @@
 package io.mbab.sda.groupproject.entity;
 
-
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,19 +15,20 @@ import java.util.UUID;
 @EqualsAndHashCode(of = {"uuid"})
 public class League {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    @Column(length = 128, nullable = false)
-    private String name;
+  @Column(length = 128, nullable = false)
+  private String name;
 
-    @Column(length = 128, nullable = false)
-    private Country country;
+  @ManyToOne
+  @JoinColumn(name = "id")
+  @Column(length = 128, nullable = false)
+  private Country country;
 
-    private List<Team> teams;
+  @OneToMany(mappedBy = "league")
+  private List<Team> teams;
 
-    @Transient
-    private UUID uuid = UUID.randomUUID();
-
+  @Transient private UUID uuid = UUID.randomUUID();
 }

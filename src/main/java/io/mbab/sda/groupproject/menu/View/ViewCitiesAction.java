@@ -1,6 +1,8 @@
-package io.mbab.sda.groupproject.menu.action;
+package io.mbab.sda.groupproject.menu.View;
 
 import io.mbab.sda.groupproject.menu.MenuActionContext;
+import io.mbab.sda.groupproject.menu.action.MainAction;
+import io.mbab.sda.groupproject.menu.action.MenuAction;
 import io.mbab.sda.groupproject.repository.CityRepository;
 import lombok.RequiredArgsConstructor;
 

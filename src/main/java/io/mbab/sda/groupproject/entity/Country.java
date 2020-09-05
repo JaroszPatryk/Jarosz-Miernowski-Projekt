@@ -13,11 +13,10 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = {"name"})
 public class Country {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    @Column(length = 128, nullable = false)
-    private String name;
-
+  @Column(length = 64, nullable = false)
+  private String name;
 }

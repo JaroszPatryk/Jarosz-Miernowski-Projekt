@@ -15,29 +15,28 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Player {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @Column(length = 64, nullable = false)
-    private String firstName;
+  @Column(length = 64, nullable = false)
+  private String firstName;
 
+  @Column(length = 64, nullable = false)
+  private String lastName;
 
-    @Column(length = 64, nullable = false)
-    private String lastName;
+  @Column(length = 15, nullable = false)
+  private String dateOfBirth;
 
-    @Column(length = 15, nullable = false)
-    private String dateOfBirth;
+  @ManyToOne
+  @JoinColumn(name = "id")
+  @Column(length = 64, nullable = false)
+  private Country country;
 
+  @ManyToOne
+  @JoinColumn(name = "players")
+  @Column(length = 64)
+  private Team team;
 
-    @Column(length = 64, nullable = false)
-    private Country country;
-
-    @ManyToOne
-    @Column(length = 64, nullable = false)
-    private Team team;
-
-    @Transient
-    private UUID uuid = UUID.randomUUID();
-
+  @Transient private UUID uuid = UUID.randomUUID();
 }

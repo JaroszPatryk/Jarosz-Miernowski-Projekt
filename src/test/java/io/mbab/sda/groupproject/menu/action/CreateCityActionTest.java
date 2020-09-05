@@ -24,7 +24,7 @@ public class CreateCityActionTest {
         testedAction.execute();
 
         //then
-        verify(actionCtx, times(1)).use(MainAction.class);
+        verify(actionCtx, times(1)).execute();//use(MainAction.class)
 
     }
 }

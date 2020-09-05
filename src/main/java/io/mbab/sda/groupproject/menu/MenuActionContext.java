@@ -25,7 +25,6 @@ public class MenuActionContext {
     return this;
   }
 
-  @SneakyThrows
   public void execute() {
     if (action == null) throw new RuntimeException("Menu action not set");
     action.execute();

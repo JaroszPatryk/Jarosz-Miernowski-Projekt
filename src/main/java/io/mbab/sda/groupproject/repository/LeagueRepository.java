@@ -2,6 +2,7 @@ package io.mbab.sda.groupproject.repository;
 
 import io.mbab.sda.groupproject.entity.League;
 import io.mbab.sda.groupproject.entity.Team;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -9,10 +10,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 public class LeagueRepository implements CrudRepository<Team, Integer> {
 
-    EntityManager em;
-    Class<League> entityClass;
+    private final  EntityManager em;
+    private final Class<League> entityClass;
 
     public League findByName(String name){
 

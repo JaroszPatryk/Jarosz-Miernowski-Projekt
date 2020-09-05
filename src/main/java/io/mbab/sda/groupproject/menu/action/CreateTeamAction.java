@@ -6,7 +6,7 @@ import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.repository.LeagueRepository;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.EntityManager;
+
 
 @RequiredArgsConstructor
 public class CreateTeamAction implements MenuAction {

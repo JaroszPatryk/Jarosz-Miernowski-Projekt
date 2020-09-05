@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class CreateLeagueAction implements MenuAction {
 
   private final CustomScanner cs;
-  CountryRepository countryRepository;
+  private final CountryRepository countryRepository;
   private final MenuActionContext ctx;
   private final LeagueRepository leagueRepository;
 

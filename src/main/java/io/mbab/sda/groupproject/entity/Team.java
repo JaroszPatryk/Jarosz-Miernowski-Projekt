@@ -26,7 +26,7 @@ public class Team {
     private String city;
 
     @Column(columnDefinition = "int default 0")
-    private Double value;
+    private double value;
 
     @ManyToOne
     @Column(unique = true)

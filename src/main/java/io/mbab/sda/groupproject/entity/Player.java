@@ -25,8 +25,11 @@ public class Player {
 
     @Column(length = 15, nullable = false)
     private int dateOfBirth;
+//
+//    @Column(length = 64, nullable = false)
+//    private Country country;
 
-    @Column(length = 64, nullable = false)
-    private String country;
+//    @Column(length = 64, nullable = false)
+//    private Team team;
 
 }

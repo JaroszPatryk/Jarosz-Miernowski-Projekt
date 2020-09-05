@@ -1,5 +1,6 @@
 package io.mbab.sda.groupproject.entity;
 
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"uuid"})
-public class Team {
+public class League {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,15 +24,11 @@ public class Team {
     private String name;
 
     @Column(length = 128, nullable = false)
-    private String city;
+    private Country country;
 
-    @Column(length = 128, columnDefinition = "int default 0")
-    private Double value;
-
-    private League league;
-
-    private List<Player> players;
+    private List<Team> teams;
 
     @Transient
     private UUID uuid = UUID.randomUUID();
+
 }

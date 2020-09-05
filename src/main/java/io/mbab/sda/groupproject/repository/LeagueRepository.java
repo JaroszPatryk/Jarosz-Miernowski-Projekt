@@ -2,6 +2,7 @@ package io.mbab.sda.groupproject.repository;
 
 import io.mbab.sda.groupproject.entity.League;
 import io.mbab.sda.groupproject.entity.Team;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
@@ -9,7 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
-
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class LeagueRepository implements CrudRepository<Team, Integer> {
 

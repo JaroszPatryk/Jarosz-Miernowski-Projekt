@@ -19,6 +19,7 @@ public class Player {
     @Column(length = 64, nullable = false)
     private String firstName;
 
+
     @Column(length = 64, nullable = false)
     private String lastName;
 

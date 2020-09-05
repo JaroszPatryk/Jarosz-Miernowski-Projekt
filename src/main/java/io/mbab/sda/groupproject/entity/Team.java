@@ -25,11 +25,14 @@ public class Team {
     @Column(length = 128, nullable = false)
     private String city;
 
-    @Column(length = 128, columnDefinition = "int default 0")
+    @Column(columnDefinition = "int default 0")
     private Double value;
 
+    @ManyToOne
+    @Column(unique = true)
     private League league;
 
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
     private List<Player> players;
 
     @Transient

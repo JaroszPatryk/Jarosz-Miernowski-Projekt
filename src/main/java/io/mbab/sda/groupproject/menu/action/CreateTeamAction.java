@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 public class CreateTeamAction implements MenuAction {
 
   private final CustomScanner cs;
-  LeagueRepository leagueRepository;
+  private final LeagueRepository leagueRepository;
   //    CountryRepository countryRepository;
 
   @Override

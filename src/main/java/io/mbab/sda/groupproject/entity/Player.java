@@ -29,7 +29,7 @@ public class Player {
 //    @Column(length = 64, nullable = false)
 //    private Country country;
 
-//    @Column(length = 64, nullable = false)
-//    private Team team;
+    @Column(length = 64, nullable = false)
+    private Team team;
 
 }

@@ -3,6 +3,9 @@ package io.mbab.sda.groupproject.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -24,12 +27,17 @@ public class Player {
     private String lastName;
 
     @Column(length = 15, nullable = false)
-    private int dateOfBirth;
-//
-//    @Column(length = 64, nullable = false)
-//    private Country country;
+    private String dateOfBirth;
+
 
     @Column(length = 64, nullable = false)
+    private Country country;
+
+    @ManyToOne
+    @Column(length = 64, nullable = false)
     private Team team;
+
+    @Transient
+    private UUID uuid = UUID.randomUUID();
 
 }

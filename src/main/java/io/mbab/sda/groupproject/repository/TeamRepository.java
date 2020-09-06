@@ -27,16 +27,16 @@ public class TeamRepository implements CrudRepository<Team, Integer> {
   }
 
   public Optional<Team> findByName(String name) {
+
     try {
       CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
       var criteriaQuery = criteriaBuilder.createQuery(Team.class);
       var root = criteriaQuery.from(Team.class);
+
       return Optional.of(
-              em.createQuery(
-                      criteriaQuery
-                          .select(root)
-                          .where(criteriaBuilder.equal(root.get("name"), name)))
-                  .getSingleResult());
+          em.createQuery(
+                  criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), name)))
+              .getSingleResult());
     } catch (NoResultException ex) {
       return Optional.empty();
     }
@@ -54,9 +54,11 @@ public class TeamRepository implements CrudRepository<Team, Integer> {
 
   @Override
   public Team create(Team entity) {
-    em.getTransaction().begin();
-    em.persist(entity);
-    em.getTransaction().commit();
+    if (entity.getId() != null) {
+      em.getTransaction().begin();
+      em.persist(entity);
+      em.getTransaction().commit();
+    }
     return entity;
   }
 

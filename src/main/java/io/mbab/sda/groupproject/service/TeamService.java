@@ -50,7 +50,7 @@ public class TeamService {
         return countryRepository.findByName(name);
     }
 
-    public League getLeagueByName(String name){
+    public Optional<League> getLeagueByName(String name){
         return leagueRepository.findByName(name);
     }
 }

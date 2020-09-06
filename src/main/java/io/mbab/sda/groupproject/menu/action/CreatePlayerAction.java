@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
-
 @RequiredArgsConstructor
 public class CreatePlayerAction implements MenuAction {
 
@@ -24,16 +23,14 @@ public class CreatePlayerAction implements MenuAction {
   private final PlayerRepository playerRepository;
   private final TeamRepository teamRepository;
 
-
-    @Override
+  @Override
   public void execute() {
-
 
     System.out.println("!!! DODAJESZ PIŁKARZA !!!");
     System.out.println("--> Wciśnięcie '0' powoduję powtór do menu głównego <--");
     System.out.println("Podaj imie gracza:");
     String firstName = scanner.nextLine();
-    if (pressedZero(firstName)){
+    if (pressedZero(firstName)) {
       return;
     }
 
@@ -61,11 +58,10 @@ public class CreatePlayerAction implements MenuAction {
     if (pressedZero(countryName)) {
       return;
     }
-      var country =
-              countryRepository
-                      .findByName(countryName)
-                      .orElseGet(() -> Country.builder().name(countryName).build());
-
+    var country =
+        countryRepository
+            .findByName(countryName)
+            .orElseGet(() -> Country.builder().name(countryName).build());
 
     Player player =
         Player.builder()
@@ -81,8 +77,7 @@ public class CreatePlayerAction implements MenuAction {
     System.out.println("Dodałeś piłkarza o danych: " + firstName + " " + lastName);
     if (team == null) {
       System.out.println("Bez drużyny");
-    }
-    else {
+    } else {
       System.out.println(team.getName());
     }
     System.out.println(dateOfBirth);
@@ -91,13 +86,13 @@ public class CreatePlayerAction implements MenuAction {
 
   private boolean pressedZero(String input) {
     if (input.equals("0")) {
-        ctx.use(MainAction.class).execute();
+      ctx.use(MainAction.class).execute();
       return true;
     }
     return false;
   }
 
-  private Team pickTeam(){
+  private Team pickTeam() {
     System.out.println("!!! DODAJESZ PIŁKARZA !!!");
     System.out.println("Podaj drużynę w której gracz występuję:");
     System.out.println("Pusty znak - piłkarz jest obecnie bez drużyny");
@@ -109,13 +104,6 @@ public class CreatePlayerAction implements MenuAction {
       return null;
     }
 
-    Team team = teamRepository.findByName(teamName);
-
-    if (team != null) {
-      return team;
-    }
-    System.out.println("Nie istnieje taka drużyna, wprowadź nazwę raz jeszcze");
-
-    return pickTeam();
+    return teamRepository.findByName(teamName).orElseGet(() -> Team.builder().name(teamName).build());
   }
 }

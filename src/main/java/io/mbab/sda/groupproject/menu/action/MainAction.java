@@ -2,6 +2,7 @@ package io.mbab.sda.groupproject.menu.action;
 
 import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
+import io.mbab.sda.groupproject.menu.View.ViewCitiesAction;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

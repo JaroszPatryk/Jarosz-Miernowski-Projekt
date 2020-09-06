@@ -7,19 +7,23 @@ import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.repository.CountryRepository;
 import io.mbab.sda.groupproject.repository.LeagueRepository;
+import io.mbab.sda.groupproject.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class CreateTeamAction implements MenuAction {
 
   private final CustomScanner cs;
-  private final LeagueRepository leagueRepository;
-  private final CountryRepository countryRepository;
   private final MenuActionContext ctx;
+  private final CountryRepository countryRepository;
+  private final LeagueRepository leagueRepository;
+  private final TeamRepository teamRepository;
 
   @Override
   public void execute() {
 
+    Team team;
+    System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
     System.out.println("--> Wciśnięcie '0' powoduję powtór do menu głównego <--");
     System.out.println("Podaj nazwę drużyny:");
 
@@ -28,14 +32,15 @@ public class CreateTeamAction implements MenuAction {
 
     var builder = Team.builder().name(name);
 
-    System.out.println("Podaj nawę Ligi:");
+    System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
+    System.out.println("Podaj nawę ligi w której dana drużyna będzie występować:");
     String leagueName = cs.nextLine();
     if (pressedZero(leagueName)) return;
 
     League league = leagueRepository.findByName(leagueName);
 
     if (league == null) {
-
+      System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
       System.out.println("Tworzysz nową lige o nazwie " + leagueName);
       System.out.println("Z jakiego Państwa jest ta liga?");
 
@@ -45,25 +50,33 @@ public class CreateTeamAction implements MenuAction {
       Country country = countryRepository.findByName(countryName);
 
       if (country == null) {
-        League.builder().name(leagueName).country(Country.builder().name(countryName).build());
+        country = Country.builder().name(countryName).build();
+        league = League.builder().name(leagueName).country(country).build();
+        countryRepository.create(country);
       } else {
-        League.builder().country(country).name(leagueName).build();
+        league = League.builder().country(country).name(leagueName).build();
       }
-
-    } else {
-      builder.league(league);
+      leagueRepository.create(league);
     }
 
-    System.out.println("Podaj nawę miasta:");
+    System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
+    System.out.println("Podaj nawę miasta z której pochodzi drużyna:");
     String city = cs.nextLine();
     if (pressedZero(city)) return;
     builder.city(city);
 
+    System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
     System.out.println("Podaj wartość drużyny");
-    double value = Double.parseDouble(cs.nextLine());
+    double value = cs.nextDouble();
     if (pressedZero(String.valueOf(value))) return;
 
-    builder.city(city);
+    team = Team.builder().name(name).city(city).value(value).league(league).build();
+
+    teamRepository.create(team);
+    System.out.println("Dodałeś drużynę o danych: " + name);
+    System.out.println(city);
+    System.out.println(leagueName);
+    System.out.println(value);
   }
 
   private boolean pressedZero(String input) {

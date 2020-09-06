@@ -1,12 +1,10 @@
 package io.mbab.sda.groupproject.menu;
 
-import io.mbab.sda.groupproject.menu.action.CreateCityAction;
-import io.mbab.sda.groupproject.menu.action.MainAction;
-import io.mbab.sda.groupproject.menu.action.MenuAction;
-import io.mbab.sda.groupproject.menu.action.ViewCitiesAction;
-import io.mbab.sda.groupproject.repository.CityRepository;
-import io.mbab.sda.groupproject.repository.CrudRepositoryFactory;
-import lombok.SneakyThrows;
+import io.mbab.sda.groupproject.menu.View.ViewLeagueAction;
+import io.mbab.sda.groupproject.menu.View.ViewPlayerAction;
+import io.mbab.sda.groupproject.menu.View.ViewTeamAction;
+import io.mbab.sda.groupproject.menu.action.*;
+import io.mbab.sda.groupproject.repository.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,10 +31,34 @@ public class MenuActionContext {
   private void initHolder(CustomScanner scanner, CrudRepositoryFactory repositoryFactory) {
     holder.put(MainAction.class, new MainAction(scanner, this));
     holder.put(
-        CreateCityAction.class,
-        new CreateCityAction(scanner, this, repositoryFactory.get(CityRepository.class)));
+        CreateLeagueAction.class,
+        new CreateLeagueAction(scanner,repositoryFactory.get(CountryRepository.class) ,this, repositoryFactory.get(LeagueRepository.class)));
     holder.put(
-        ViewCitiesAction.class,
-        new ViewCitiesAction(this, repositoryFactory.get(CityRepository.class)));
+        ViewLeagueAction.class,
+        new ViewLeagueAction(this, repositoryFactory.get(LeagueRepository.class)));
+
+    holder.put(
+        CreatePlayerAction.class,
+        new CreatePlayerAction(
+            scanner,
+            this,
+            repositoryFactory.get(CountryRepository.class),
+            repositoryFactory.get(PlayerRepository.class),
+            repositoryFactory.get(TeamRepository.class)));
+    holder.put(
+        ViewPlayerAction.class,
+        new ViewPlayerAction(this, repositoryFactory.get(PlayerRepository.class)));
+
+    holder.put(
+        CreateTeamAction.class,
+        new CreateTeamAction(
+            scanner,
+            this,
+            repositoryFactory.get(CountryRepository.class),
+            repositoryFactory.get(LeagueRepository.class),
+            repositoryFactory.get(TeamRepository.class)));
+    holder.put(
+        ViewTeamAction.class,
+        new ViewTeamAction(this, repositoryFactory.get(TeamRepository.class)));
   }
 }

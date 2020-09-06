@@ -10,7 +10,6 @@ import java.util.UUID;
 @Entity
 @Getter
 @Builder(toBuilder = true)
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Player {
@@ -37,4 +36,15 @@ public class Player {
   private Team team;
 
   @Transient private UUID uuid = UUID.randomUUID();
+
+  @Override
+  public String toString() {
+    return "Player{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", dateOfBirth='" + dateOfBirth + '\'' +
+            ", country=" + country +
+            '}';
+  }
 }

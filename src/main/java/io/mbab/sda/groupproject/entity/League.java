@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,8 +22,9 @@ public class League {
   @Column(length = 128, nullable = false)
   private String name;
 
+
+
   @ManyToOne
-  @Column(length = 128, nullable = false)
   private Country country;
 
   @OneToMany(mappedBy = "league", cascade = CascadeType.ALL)

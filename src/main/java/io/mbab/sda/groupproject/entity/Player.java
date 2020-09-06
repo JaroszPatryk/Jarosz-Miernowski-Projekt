@@ -28,13 +28,12 @@ public class Player {
   @Column(length = 15, nullable = false)
   private String dateOfBirth;
 
+
+
   @ManyToOne
-  @Column(length = 64, nullable = false)
   private Country country;
 
   @ManyToOne
-  @JoinColumn(name = "players")
-  @Column(length = 64)
   private Team team;
 
   @Transient private UUID uuid = UUID.randomUUID();

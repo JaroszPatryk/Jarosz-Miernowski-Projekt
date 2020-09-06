@@ -1,13 +1,11 @@
 package io.mbab.sda.groupproject.repository;
 
-import io.mbab.sda.groupproject.entity.City;
 import io.mbab.sda.groupproject.entity.Country;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class CountryRepository implements CrudRepository<Country, Integer> {

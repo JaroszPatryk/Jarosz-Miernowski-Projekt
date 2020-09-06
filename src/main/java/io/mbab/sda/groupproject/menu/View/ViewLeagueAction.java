@@ -1,19 +1,16 @@
 package io.mbab.sda.groupproject.menu.View;
 
 import io.mbab.sda.groupproject.entity.League;
-import io.mbab.sda.groupproject.entity.Player;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.menu.action.MainAction;
 import io.mbab.sda.groupproject.menu.action.MenuAction;
-import io.mbab.sda.groupproject.repository.CityRepository;
 import io.mbab.sda.groupproject.repository.LeagueRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@AllArgsConstructor
+
 public class ViewLeagueAction implements MenuAction {
 
     private final MenuActionContext ctx;

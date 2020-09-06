@@ -27,13 +27,11 @@ public class TeamRepository implements CrudRepository<Team, Integer> {
   }
 
   public Optional<Team> findByName(String name) {
-    Optional<Team> team = null;
     try {
       CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
       var criteriaQuery = criteriaBuilder.createQuery(Team.class);
       var root = criteriaQuery.from(Team.class);
-      team =
-          Optional.of(
+      return Optional.of(
               em.createQuery(
                       criteriaQuery
                           .select(root)
@@ -42,7 +40,6 @@ public class TeamRepository implements CrudRepository<Team, Integer> {
     } catch (NoResultException ex) {
       return Optional.empty();
     }
-    return team;
   }
 
   @Override

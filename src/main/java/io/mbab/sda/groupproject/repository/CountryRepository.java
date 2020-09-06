@@ -17,12 +17,10 @@ public class CountryRepository implements CrudRepository<Country, Integer> {
     CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
     var criteriaQuery = criteriaBuilder.createQuery(Country.class);
     var root = criteriaQuery.from(Country.class);
-    var entity =
-            em.createQuery(
+    return em.createQuery(
                     criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), name)))
                     .getSingleResult();
 
-    return entity;
   }
   @Override
   public List<Country> getAll() {

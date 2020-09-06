@@ -7,6 +7,7 @@ import io.mbab.sda.groupproject.menu.action.MainAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.repository.CrudRepositoryFactory;
 
+import javax.persistence.EntityManager;
 import java.util.Scanner;
 
 public class Application {
@@ -18,6 +19,8 @@ public class Application {
     var repositoryFactory = new CrudRepositoryFactory(emFactory);
     var scanner = new CustomScanner();
 
-    new MenuActionContext(scanner, repositoryFactory).use(MainAction.class).execute();
+    new MenuActionContext(scanner, repositoryFactory, emFactory.createEntityManager())
+        .use(MainAction.class)
+        .execute();
   }
 }

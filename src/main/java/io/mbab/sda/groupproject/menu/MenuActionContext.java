@@ -17,10 +17,11 @@ public class MenuActionContext {
 
   private MenuAction action;
   private Map<Class<? extends MenuAction>, MenuAction> holder = new HashMap<>();
-  private EntityManager em;
 
-  public MenuActionContext(CustomScanner scanner, CrudRepositoryFactory repositoryFactory) {
-    initHolder(scanner, repositoryFactory);
+
+  public MenuActionContext(CustomScanner scanner, CrudRepositoryFactory repositoryFactory,
+                           EntityManager em) {
+    initHolder(scanner, repositoryFactory, em);
   }
 
   public MenuActionContext use(Class<? extends MenuAction> actionClass) {
@@ -33,7 +34,8 @@ public class MenuActionContext {
     action.execute();
   }
 
-  private void initHolder(CustomScanner scanner, CrudRepositoryFactory repositoryFactory) {
+  private void initHolder(CustomScanner scanner, CrudRepositoryFactory repositoryFactory,
+                          EntityManager em) {
     holder.put(MainAction.class, new MainAction(scanner, this));
     holder.put(
         CreateLeagueAction.class,

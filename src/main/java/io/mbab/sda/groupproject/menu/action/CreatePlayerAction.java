@@ -68,6 +68,7 @@ public class CreatePlayerAction implements MenuAction {
     if (country == null) {
       System.out.println("!!! DODAJESZ PIŁKARZA !!!");
       System.out.println("Tworzysz nowy kraj: " + countryName);
+
     } else {
       countryRepository.create(country);
     }
@@ -110,18 +111,17 @@ public class CreatePlayerAction implements MenuAction {
     if (pressedZero(teamName)) {
       return null;
     }
-    if ("".equals(teamName) || " ".equals(teamName)) {
+    if ("".equals(teamName.trim())) {
       return null;
     }
-    if (teamRepository.findByName(teamName) != null) {
-      return teamRepository.findByName(teamName);
+
+    Team team = teamRepository.findByName(teamName);
+
+    if (team != null) {
+      return team;
     }
     System.out.println("Nie istnieje taka drużyna, wprowadź nazwę raz jeszcze");
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+
     return pickTeam();
   }
 }

@@ -23,11 +23,10 @@ public class League {
   private String name;
 
   @ManyToOne
-  @JoinColumn(name = "id")
   @Column(length = 128, nullable = false)
   private Country country;
 
-  @OneToMany(mappedBy = "league")
+  @OneToMany(mappedBy = "league", cascade = CascadeType.ALL)
   private List<Team> teams;
 
   @Transient private UUID uuid = UUID.randomUUID();

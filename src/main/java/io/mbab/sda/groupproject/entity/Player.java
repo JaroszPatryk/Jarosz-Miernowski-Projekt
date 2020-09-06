@@ -29,7 +29,6 @@ public class Player {
   private String dateOfBirth;
 
   @ManyToOne
-  @JoinColumn(name = "id")
   @Column(length = 64, nullable = false)
   private Country country;
 

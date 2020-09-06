@@ -32,7 +32,7 @@ public class MenuActionContext {
     holder.put(MainAction.class, new MainAction(scanner, this));
     holder.put(
         CreateLeagueAction.class,
-        new CreateLeagueAction(scanner, this, repositoryFactory.get(LeagueRepository.class)));
+        new CreateLeagueAction(scanner,repositoryFactory.get(CountryRepository.class) ,this, repositoryFactory.get(LeagueRepository.class)));
     holder.put(
         ViewLeagueAction.class,
         new ViewLeagueAction(this, repositoryFactory.get(LeagueRepository.class)));

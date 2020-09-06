@@ -13,12 +13,12 @@ import java.util.Optional;
 public class CountryRepository implements CrudRepository<Country, Integer> {
 
   private final EntityManager em;
-  Class <Country> entityClass;
+  //Class <Country> entityClass;
 
   public Country findByName(String name){
     CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-    var criteriaQuery = criteriaBuilder.createQuery(entityClass);
-    var root = criteriaQuery.from(entityClass);
+    var criteriaQuery = criteriaBuilder.createQuery(Country.class);
+    var root = criteriaQuery.from(Country.class);
     var entity =
             em.createQuery(
                     criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), name)))

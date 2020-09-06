@@ -12,22 +12,22 @@ import java.util.List;
 public class TeamRepository implements CrudRepository<Team, Integer> {
 
   private final EntityManager em;
-  private final Class<Team> entityClass;
+  //private final Class<Team> entityClass;
 
   @Override
   public List<Team> getAll() {
 
     CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-    var criteriaQuery = criteriaBuilder.createQuery(entityClass);
-    var root = criteriaQuery.from(entityClass);
+    var criteriaQuery = criteriaBuilder.createQuery(Team.class);
+    var root = criteriaQuery.from(Team.class);
     return em.createQuery(criteriaQuery.select(root)).getResultList();
   }
 
   public Team findByName(String name) {
 
     CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-    var criteriaQuery = criteriaBuilder.createQuery(entityClass);
-    var root = criteriaQuery.from(entityClass);
+    var criteriaQuery = criteriaBuilder.createQuery(Team.class);
+    var root = criteriaQuery.from(Team.class);
     return em.createQuery(
             criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), name)))
         .getSingleResult();
@@ -36,8 +36,8 @@ public class TeamRepository implements CrudRepository<Team, Integer> {
   @Override
   public Team findById(Integer integer) {
     CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-    var criteriaQuery = criteriaBuilder.createQuery(entityClass);
-    var root = criteriaQuery.from(entityClass);
+    var criteriaQuery = criteriaBuilder.createQuery(Team.class);
+    var root = criteriaQuery.from(Team.class);
     return em.createQuery(
             criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), integer)))
         .getSingleResult();

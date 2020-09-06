@@ -16,13 +16,13 @@ import java.util.Optional;
 public class LeagueRepository implements CrudRepository<League, Integer> {
 
   private final EntityManager em;
-  private final Class<League> entityClass;
+  //private final Class<League> entityClass;
 
   public League findByName(String name) {
 
     CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-    var criteriaQuery = criteriaBuilder.createQuery(entityClass);
-    var root = criteriaQuery.from(entityClass);
+    var criteriaQuery = criteriaBuilder.createQuery(League.class);
+    var root = criteriaQuery.from(League.class);
     var entity =
         em.createQuery(
                 criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), name)))

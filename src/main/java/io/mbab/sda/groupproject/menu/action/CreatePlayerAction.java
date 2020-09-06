@@ -51,29 +51,7 @@ public class CreatePlayerAction implements MenuAction {
       return;
     }
 
-    Team team = null;
-    while (true) {
-      System.out.println("!!! DODAJESZ PIŁKARZA !!!");
-      System.out.println("Podaj drużynę w której gracz występuję:");
-      System.out.println("Pusty znak - piłkarz jest obecnie bez drużyny");
-      String teamName = scanner.nextLine();
-      if (pressedZero(dateOfBirth)) {
-        return;
-      }
-      if ("".equals(teamName) || " ".equals(teamName)) {
-        break;
-      }
-      if (teamRepository.findByName(teamName) != null) {
-        team = teamRepository.findByName(teamName);
-        break;
-      }
-      System.out.println("Nie istnieje taka drużyna, wprowadź nazwę raz jeszcze");
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    }
+    Team team = pickTeam();
 
     System.out.println("!!! DODAJESZ PIŁKARZA !!!");
     System.out.println("Podaj kraj pochodzenia gracza:");

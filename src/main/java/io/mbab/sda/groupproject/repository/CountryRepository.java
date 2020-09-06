@@ -22,7 +22,7 @@ public class CountryRepository implements CrudRepository<Country, Integer> {
                     criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), name)))
                     .getSingleResult();
 
-    return findByName(name);
+    return entity;
   }
   @Override
   public List<Country> getAll() {

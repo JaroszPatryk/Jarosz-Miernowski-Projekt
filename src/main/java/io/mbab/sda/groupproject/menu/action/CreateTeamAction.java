@@ -40,7 +40,7 @@ public class CreateTeamAction implements MenuAction {
     Country country = null;
     if (pressedZero(leagueName)) return;
 
-    League league = teamService.getLeagueRepository().findByName(leagueName);
+    League league = teamService.getLeagueByName(leagueName);
 
     if (league == null) {
       System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
@@ -50,7 +50,7 @@ public class CreateTeamAction implements MenuAction {
       String countryName = cs.nextLine();
       if (pressedZero(countryName)) return;
 
-      country = teamService.getCountryRepository().findByName(countryName);
+      country = teamService.getCountryByName(countryName);
 
       if (country == null) {
         country = Country.builder().name(countryName).build();

@@ -32,4 +32,8 @@ public class LeagueService {
     }
     return newLeague;
   }
+
+  public Country getCountryByName(String name){
+    return countryRepository.findByName(name);
+  }
 }

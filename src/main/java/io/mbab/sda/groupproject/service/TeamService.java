@@ -35,4 +35,12 @@ public class TeamService {
         return team;
 
     }
+
+    public Country getCountryByName(String name){
+        return countryRepository.findByName(name);
+    }
+
+    public League getLeagueByName(String name){
+        return leagueRepository.findByName(name);
+    }
 }

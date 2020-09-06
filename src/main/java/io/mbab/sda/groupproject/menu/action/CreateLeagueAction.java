@@ -37,7 +37,7 @@ public class CreateLeagueAction implements MenuAction {
     String countryName = cs.nextLine();
     if (pressedZero(countryName)) return;
 
-    Country country = leagueService.getCountryRepository().findByName(countryName);
+    Country country = leagueService.getCountryByName(countryName);
     if (country == null) {
       league =
           League.builder().name(name).country(Country.builder().name(countryName).build()).build();

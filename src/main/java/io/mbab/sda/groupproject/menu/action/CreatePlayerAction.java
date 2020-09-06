@@ -8,6 +8,7 @@ import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.repository.CountryRepository;
 import io.mbab.sda.groupproject.repository.PlayerRepository;
 import io.mbab.sda.groupproject.repository.TeamRepository;
+import io.mbab.sda.groupproject.service.TeamService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +23,7 @@ public class CreatePlayerAction implements MenuAction {
   private final CountryRepository countryRepository;
   private final PlayerRepository playerRepository;
   private final TeamRepository teamRepository;
+
 
     @Override
   public void execute() {
@@ -55,21 +57,15 @@ public class CreatePlayerAction implements MenuAction {
     System.out.println("Podaj kraj pochodzenia gracza:");
 
     String countryName = scanner.nextLine();
-    Optional<Country> country = null;
 
     if (pressedZero(countryName)) {
       return;
     }
+      var country =
+              countryRepository
+                      .findByName(countryName)
+                      .orElseGet(() -> Country.builder().name(countryName).build());
 
-    country = countryRepository.findByName(countryName);
-
-    if (country == null) {
-      System.out.println("!!! DODAJESZ PIŁKARZA !!!");
-      System.out.println("Tworzysz nowy kraj: " + countryName);
-
-    } else {
-      countryRepository.create(Country.builder().build());
-    }
 
     Player player =
         Player.builder()
@@ -81,7 +77,7 @@ public class CreatePlayerAction implements MenuAction {
             .build();
 
     playerRepository.create(player);
-
+    countryRepository.create(country);
     System.out.println("Dodałeś piłkarza o danych: " + firstName + " " + lastName);
     if (team == null) {
       System.out.println("Bez drużyny");

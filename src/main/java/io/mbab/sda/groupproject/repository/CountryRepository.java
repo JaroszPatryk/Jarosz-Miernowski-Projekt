@@ -45,11 +45,13 @@ public class CountryRepository implements CrudRepository<Country, Integer> {
   }
 
   @Override
-  public Country create(Country entity) {
-    em.getTransaction().begin();
-    em.persist(entity);
-    em.getTransaction().commit();
-    return entity;
+  public Country create(Country country) {
+    if (country.getId() == null) {
+      em.getTransaction().begin();
+      em.persist(country);
+      em.getTransaction().commit();
+    }
+    return country;
   }
 
   @Override

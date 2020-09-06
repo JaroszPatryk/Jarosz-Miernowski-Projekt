@@ -36,48 +36,40 @@ public class CreateTeamAction implements MenuAction {
     System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
     System.out.println("Podaj nawę ligi w której dana drużyna będzie występować:");
     String leagueName = cs.nextLine();
-    Optional<Country> country = null;
     if (pressedZero(leagueName)) return;
+    var league = teamService
+            .getLeagueByName(leagueName)
+            .orElseGet(() -> League.builder().name(leagueName).build());
 
-    League league = teamService.getLeagueByName(leagueName);
-
-    if (league == null) {
-      System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
-      System.out.println("Tworzysz nową lige o nazwie " + leagueName);
-      System.out.println("Z jakiego Państwa jest ta liga?");
-
-      String countryName = cs.nextLine();
-      if (pressedZero(countryName)) return;
-
-      country = teamService.getCountryByName(countryName);
-
-      if (country == null) {
-        country = Optional.ofNullable(Country.builder().name(countryName).build());
-        league = League.builder().name(leagueName).country(Country.builder().build()).build();
-      } else {
-        league = League.builder().country(Country.builder().build()).name(leagueName).build();
-      }
-
-    }
+    System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
+    System.out.println("Podaj nawę państwa z której pochodzi drużyna:");
+    String countryName = cs.nextLine();
+    if (pressedZero(countryName)) return;
+    var country =
+        teamService
+            .getCountryByName(countryName)
+            .orElseGet(() -> Country.builder().name(countryName).build());
 
     System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
     System.out.println("Podaj nawę miasta z której pochodzi drużyna:");
-    String city = cs.nextLine();
-    if (pressedZero(city)) return;
-    builder.city(city);
+    String cityName = cs.nextLine();
+    if (pressedZero(cityName)) return;
+    builder.city(cityName);
 
     System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
     System.out.println("Podaj wartość drużyny");
     double value = cs.nextDouble();
     if (pressedZero(String.valueOf(value))) return;
 
-    team = Team.builder().name(name).city(city).value(value).league(league).build();
+    team = Team.builder().name(name).city(cityName).value(value).league(league).build();
 
-    teamService.saveTeam(Country.builder().build(), league, team);
+    teamService.saveTeam(country,league,team);
     System.out.println("Dodałeś drużynę o danych: " + name);
-    System.out.println(city);
+    System.out.println(countryName);
+    System.out.println(cityName);
     System.out.println(leagueName);
     System.out.println(value);
+    ctx.execute();
   }
 
   private boolean pressedZero(String input) {

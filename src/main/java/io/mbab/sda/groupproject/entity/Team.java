@@ -17,13 +17,16 @@ public class Team {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
 
   @Column(length = 128, nullable = false)
   private String name;
 
   @Column(length = 128, nullable = false)
   private String city;
+
+  @ManyToOne
+  private Country country;
 
   @Column(columnDefinition = "int default 0")
   private double value;

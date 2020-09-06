@@ -25,7 +25,7 @@ public class CreateLeagueAction implements MenuAction {
   @Override
   public void execute() {
 
-    League league;
+
     System.out.println("!!! DODAJESZ LIGĘ !!!");
     System.out.println("--> Wciśnięcie '0' powoduję powtór do menu głównego <--");
     System.out.println("Jaka nazwa ligi?");
@@ -39,16 +39,12 @@ public class CreateLeagueAction implements MenuAction {
     String countryName = cs.nextLine();
     if (pressedZero(countryName)) return;
 
-    Optional<Country> country = leagueService.getCountryByName(countryName);
-    if (country == null) {
-      league =
-          League.builder().name(name).country(Country.builder().name(countryName).build()).build();
-
-    } else {
-      league = League.builder().country(Country.builder().build()).name(name).build();
-    }
-
-    leagueService.saveLeague(Country.builder().build(), league);
+    var country =
+            leagueService
+                    .getCountryByName(countryName)
+                    .orElseGet(() -> Country.builder().name(countryName).build());
+    var league = League.builder().name(name).build();
+    leagueService.saveLeague(country, league);
     System.out.println("Dodano ligę o nazwie: " + name + ", kraj pochodzenia: " + countryName);
   }
 

@@ -17,7 +17,7 @@ public class League {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
 
   @Column(length = 128, nullable = false)
   private String name;

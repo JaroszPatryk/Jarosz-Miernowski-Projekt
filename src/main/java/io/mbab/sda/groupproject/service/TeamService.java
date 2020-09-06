@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
 
 @Getter
 @RequiredArgsConstructor
@@ -24,10 +25,19 @@ public class TeamService {
 
         try{
             em.getTransaction().begin();
-            countryRepository.create(country);
-            leagueRepository.create(league);
-            teamRepository.create(team);
+            if (country.getId() == null){
+                country = countryRepository.create(country);
+            }
+
+            league = league.toBuilder().country(country).build();
+            if(league.getId() == null){
+                league = leagueRepository.create(league);
+            }
+
+            team = team.toBuilder().league(league).build();
+            em.persist(team);
             em.getTransaction().commit();
+
         }catch(Exception ex){
             em.getTransaction().rollback();
         }
@@ -36,11 +46,11 @@ public class TeamService {
 
     }
 
-    public Country getCountryByName(String name){
+    public Optional<Country> getCountryByName(String name){
         return countryRepository.findByName(name);
     }
 
-    public League getLeagueByName(String name){
+    public Optional<League> getLeagueByName(String name){
         return leagueRepository.findByName(name);
     }
 }

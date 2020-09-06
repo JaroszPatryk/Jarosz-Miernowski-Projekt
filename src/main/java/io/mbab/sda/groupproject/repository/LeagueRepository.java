@@ -17,17 +17,18 @@ public class LeagueRepository implements CrudRepository<League, Integer> {
   private final EntityManager em;
   //private final Class<League> entityClass;
 
-  public League findByName(String name) {
-
+  public Optional<League> findByName(String name) {
+    try{
     CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
     var criteriaQuery = criteriaBuilder.createQuery(League.class);
     var root = criteriaQuery.from(League.class);
-    var entity =
-        em.createQuery(
-                criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), name)))
-            .getSingleResult();
+     return Optional.of(em.createQuery(
+              criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), name)))
+              .getSingleResult());
+    }catch (NoResultException ex){
+      return Optional.empty();
+    }
 
-    return entity;
   }
 
   @Override

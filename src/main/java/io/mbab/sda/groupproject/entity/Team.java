@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,8 +29,6 @@ public class Team {
   private double value;
 
   @ManyToOne
-  @JoinColumn(name = "id")
-  @Column(unique = true)
   private League league;
 
   @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)

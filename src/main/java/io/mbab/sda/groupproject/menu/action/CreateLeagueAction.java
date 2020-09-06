@@ -6,17 +6,19 @@ import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.repository.CountryRepository;
 import io.mbab.sda.groupproject.repository.LeagueRepository;
+import io.mbab.sda.groupproject.service.LeagueService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+
 @RequiredArgsConstructor
 public class CreateLeagueAction implements MenuAction {
 
   private final CustomScanner cs;
-  private final CountryRepository countryRepository;
+  //private final CountryRepository countryRepository;
   private final MenuActionContext ctx;
-  private final LeagueRepository leagueRepository;
+  //private final LeagueRepository leagueRepository;
+  private final LeagueService leagueService;
 
   @Override
   public void execute() {
@@ -35,7 +37,7 @@ public class CreateLeagueAction implements MenuAction {
     String countryName = cs.nextLine();
     if (pressedZero(countryName)) return;
 
-    Country country = countryRepository.findByName(countryName);
+    Country country = leagueService.getCountryByName(countryName);
     if (country == null) {
       league =
           League.builder().name(name).country(Country.builder().name(countryName).build()).build();
@@ -44,7 +46,7 @@ public class CreateLeagueAction implements MenuAction {
       league = League.builder().country(country).name(name).build();
     }
 
-    leagueRepository.create(league);
+    leagueService.saveLeague(country, league);
     System.out.println("Dodano ligę o nazwie: " + name + ", kraj pochodzenia: " + countryName);
   }
 

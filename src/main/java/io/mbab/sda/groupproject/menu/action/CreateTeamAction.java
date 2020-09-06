@@ -8,6 +8,7 @@ import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.repository.CountryRepository;
 import io.mbab.sda.groupproject.repository.LeagueRepository;
 import io.mbab.sda.groupproject.repository.TeamRepository;
+import io.mbab.sda.groupproject.service.TeamService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -15,9 +16,10 @@ public class CreateTeamAction implements MenuAction {
 
   private final CustomScanner cs;
   private final MenuActionContext ctx;
-  private final CountryRepository countryRepository;
-  private final LeagueRepository leagueRepository;
-  private final TeamRepository teamRepository;
+//  private final CountryRepository countryRepository;
+//  private final LeagueRepository leagueRepository;
+//  private final TeamRepository teamRepository;
+  private final TeamService teamService;
 
   @Override
   public void execute() {
@@ -35,9 +37,10 @@ public class CreateTeamAction implements MenuAction {
     System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
     System.out.println("Podaj nawę ligi w której dana drużyna będzie występować:");
     String leagueName = cs.nextLine();
+    Country country = null;
     if (pressedZero(leagueName)) return;
 
-    League league = leagueRepository.findByName(leagueName);
+    League league = teamService.getLeagueByName(leagueName);
 
     if (league == null) {
       System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
@@ -47,16 +50,15 @@ public class CreateTeamAction implements MenuAction {
       String countryName = cs.nextLine();
       if (pressedZero(countryName)) return;
 
-      Country country = countryRepository.findByName(countryName);
+      country = teamService.getCountryByName(countryName);
 
       if (country == null) {
         country = Country.builder().name(countryName).build();
         league = League.builder().name(leagueName).country(country).build();
-        countryRepository.create(country);
       } else {
         league = League.builder().country(country).name(leagueName).build();
       }
-      leagueRepository.create(league);
+
     }
 
     System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
@@ -72,7 +74,7 @@ public class CreateTeamAction implements MenuAction {
 
     team = Team.builder().name(name).city(city).value(value).league(league).build();
 
-    teamRepository.create(team);
+    teamService.saveTeam(country, league, team);
     System.out.println("Dodałeś drużynę o danych: " + name);
     System.out.println(city);
     System.out.println(leagueName);

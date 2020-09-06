@@ -1,13 +1,11 @@
 package io.mbab.sda.groupproject.repository;
 
-import io.mbab.sda.groupproject.entity.City;
 import io.mbab.sda.groupproject.entity.Country;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class CountryRepository implements CrudRepository<Country, Integer> {
@@ -19,12 +17,10 @@ public class CountryRepository implements CrudRepository<Country, Integer> {
     CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
     var criteriaQuery = criteriaBuilder.createQuery(Country.class);
     var root = criteriaQuery.from(Country.class);
-    var entity =
-            em.createQuery(
+    return em.createQuery(
                     criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), name)))
                     .getSingleResult();
 
-    return findByName(name);
   }
   @Override
   public List<Country> getAll() {

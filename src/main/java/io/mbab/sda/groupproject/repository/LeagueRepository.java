@@ -11,7 +11,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
 @RequiredArgsConstructor
 public class LeagueRepository implements CrudRepository<League, Integer> {
 

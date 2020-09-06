@@ -28,7 +28,7 @@ public class CountryRepository implements CrudRepository<Country, Integer> {
   }
   @Override
   public List<Country> getAll() {
-    return em.createQuery("FROM country", Country.class)
+    return em.createQuery("FROM Country", Country.class)
             .getResultList();
   }
 

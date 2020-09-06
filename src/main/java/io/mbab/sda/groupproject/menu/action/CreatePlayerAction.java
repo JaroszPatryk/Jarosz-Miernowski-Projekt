@@ -1,19 +1,16 @@
 package io.mbab.sda.groupproject.menu.action;
 
-import io.mbab.sda.groupproject.entity.City;
 import io.mbab.sda.groupproject.entity.Country;
 import io.mbab.sda.groupproject.entity.Player;
 import io.mbab.sda.groupproject.entity.Team;
 import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
-import io.mbab.sda.groupproject.repository.CityRepository;
 import io.mbab.sda.groupproject.repository.CountryRepository;
 import io.mbab.sda.groupproject.repository.PlayerRepository;
 import io.mbab.sda.groupproject.repository.TeamRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDate;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -25,7 +22,7 @@ public class CreatePlayerAction implements MenuAction {
   private final PlayerRepository playerRepository;
   private final TeamRepository teamRepository;
 
-  @Override
+    @Override
   public void execute() {
 
 
@@ -97,7 +94,7 @@ public class CreatePlayerAction implements MenuAction {
 
   private boolean pressedZero(String input) {
     if (input.equals("0")) {
-      ctx.use(MainAction.class).execute();
+        ctx.use(MainAction.class).execute();
       return true;
     }
     return false;

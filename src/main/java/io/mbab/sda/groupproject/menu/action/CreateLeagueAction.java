@@ -10,6 +10,8 @@ import io.mbab.sda.groupproject.service.LeagueService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 
 @RequiredArgsConstructor
 public class CreateLeagueAction implements MenuAction {
@@ -37,16 +39,16 @@ public class CreateLeagueAction implements MenuAction {
     String countryName = cs.nextLine();
     if (pressedZero(countryName)) return;
 
-    Country country = leagueService.getCountryByName(countryName);
+    Optional<Country> country = leagueService.getCountryByName(countryName);
     if (country == null) {
       league =
           League.builder().name(name).country(Country.builder().name(countryName).build()).build();
 
     } else {
-      league = League.builder().country(country).name(name).build();
+      league = League.builder().country(Country.builder().build()).name(name).build();
     }
 
-    leagueService.saveLeague(country, league);
+    leagueService.saveLeague(Country.builder().build(), league);
     System.out.println("Dodano ligę o nazwie: " + name + ", kraj pochodzenia: " + countryName);
   }
 

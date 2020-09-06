@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
 
 @Getter
 @RequiredArgsConstructor
@@ -36,7 +37,7 @@ public class TeamService {
 
     }
 
-    public Country getCountryByName(String name){
+    public Optional<Country> getCountryByName(String name){
         return countryRepository.findByName(name);
     }
 

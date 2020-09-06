@@ -11,14 +11,13 @@ import io.mbab.sda.groupproject.repository.TeamRepository;
 import io.mbab.sda.groupproject.service.TeamService;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 public class CreateTeamAction implements MenuAction {
 
   private final CustomScanner cs;
   private final MenuActionContext ctx;
-//  private final CountryRepository countryRepository;
-//  private final LeagueRepository leagueRepository;
-//  private final TeamRepository teamRepository;
   private final TeamService teamService;
 
   @Override
@@ -37,7 +36,7 @@ public class CreateTeamAction implements MenuAction {
     System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
     System.out.println("Podaj nawę ligi w której dana drużyna będzie występować:");
     String leagueName = cs.nextLine();
-    Country country = null;
+    Optional<Country> country = null;
     if (pressedZero(leagueName)) return;
 
     League league = teamService.getLeagueByName(leagueName);
@@ -53,10 +52,10 @@ public class CreateTeamAction implements MenuAction {
       country = teamService.getCountryByName(countryName);
 
       if (country == null) {
-        country = Country.builder().name(countryName).build();
-        league = League.builder().name(leagueName).country(country).build();
+        country = Optional.ofNullable(Country.builder().name(countryName).build());
+        league = League.builder().name(leagueName).country(Country.builder().build()).build();
       } else {
-        league = League.builder().country(country).name(leagueName).build();
+        league = League.builder().country(Country.builder().build()).name(leagueName).build();
       }
 
     }
@@ -74,7 +73,7 @@ public class CreateTeamAction implements MenuAction {
 
     team = Team.builder().name(name).city(city).value(value).league(league).build();
 
-    teamService.saveTeam(country, league, team);
+    teamService.saveTeam(Country.builder().build(), league, team);
     System.out.println("Dodałeś drużynę o danych: " + name);
     System.out.println(city);
     System.out.println(leagueName);

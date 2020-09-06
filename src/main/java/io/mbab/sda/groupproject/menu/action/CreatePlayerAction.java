@@ -11,6 +11,7 @@ import io.mbab.sda.groupproject.repository.TeamRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -54,7 +55,7 @@ public class CreatePlayerAction implements MenuAction {
     System.out.println("Podaj kraj pochodzenia gracza:");
 
     String countryName = scanner.nextLine();
-    Country country = null;
+    Optional<Country> country = null;
 
     if (pressedZero(countryName)) {
       return;
@@ -67,7 +68,7 @@ public class CreatePlayerAction implements MenuAction {
       System.out.println("Tworzysz nowy kraj: " + countryName);
 
     } else {
-      countryRepository.create(country);
+      countryRepository.create(Country.builder().build());
     }
 
     Player player =
@@ -75,7 +76,7 @@ public class CreatePlayerAction implements MenuAction {
             .firstName(firstName)
             .lastName(lastName)
             .dateOfBirth(dateOfBirth)
-            .country(country)
+            .country(Country.builder().build())
             .team(team)
             .build();
 

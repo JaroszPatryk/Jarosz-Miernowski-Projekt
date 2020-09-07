@@ -1,12 +1,11 @@
 package io.mbab.sda.groupproject.menu;
 
-import io.mbab.sda.groupproject.menu.View.ViewLeagueAction;
-import io.mbab.sda.groupproject.menu.View.ViewPlayerAction;
-import io.mbab.sda.groupproject.menu.View.ViewTeamAction;
+import io.mbab.sda.groupproject.menu.View.*;
 import io.mbab.sda.groupproject.menu.action.*;
 import io.mbab.sda.groupproject.repository.*;
 import io.mbab.sda.groupproject.service.CountryService;
 import io.mbab.sda.groupproject.service.LeagueService;
+import io.mbab.sda.groupproject.service.PlayerService;
 import io.mbab.sda.groupproject.service.TeamService;
 
 import javax.persistence.EntityManager;
@@ -38,43 +37,70 @@ public class MenuActionContext {
       CustomScanner scanner, CrudRepositoryFactory repositoryFactory, EntityManager em) {
     holder.put(MainAction.class, new MainAction(scanner, this));
     holder.put(
-        CreateLeagueAction.class,
-        new CreateLeagueAction(
+        ViewCreateLeague.class,
+        new ViewCreateLeague(
             scanner,
+            new LeagueAction(
+                this,
+                new LeagueService(
+                    repositoryFactory.get(CountryRepository.class),
+                    repositoryFactory.get(LeagueRepository.class),
+                    em)),
             this,
-            new LeagueService(
-                repositoryFactory.get(CountryRepository.class),
-                repositoryFactory.get(LeagueRepository.class),
-                em)));
-    holder.put(
-        ViewLeagueAction.class,
-        new ViewLeagueAction(this, repositoryFactory.get(LeagueRepository.class)));
+            new CountryService(repositoryFactory.get(CountryRepository.class), em)));
 
     holder.put(
-        CreatePlayerAction.class,
-        new CreatePlayerAction(
+        ViewCreateTeam.class,
+        new ViewCreateTeam(
+            new TeamAction(
+                this,
+                new TeamService(
+                    repositoryFactory.get(CountryRepository.class),
+                    repositoryFactory.get(LeagueRepository.class),
+                    repositoryFactory.get(TeamRepository.class),
+                    em),
+                new CountryService(repositoryFactory.get(CountryRepository.class), em),
+                new LeagueService(
+                    repositoryFactory.get(CountryRepository.class),
+                    repositoryFactory.get(LeagueRepository.class),
+                    em)),
             scanner,
             this,
-            repositoryFactory.get(CountryRepository.class),
-            repositoryFactory.get(PlayerRepository.class),
-            repositoryFactory.get(TeamRepository.class),
-            new CountryService(repositoryFactory.get(CountryRepository.class),em)));
-    holder.put(
-        ViewPlayerAction.class,
-        new ViewPlayerAction(this, repositoryFactory.get(PlayerRepository.class)));
+            new ViewCreateLeague(
+                scanner,
+                new LeagueAction(
+                    this,
+                    new LeagueService(
+                        repositoryFactory.get(CountryRepository.class),
+                        repositoryFactory.get(LeagueRepository.class),
+                        em)),
+                this,
+                new CountryService(repositoryFactory.get(CountryRepository.class), em))));
 
     holder.put(
-        CreateTeamAction.class,
-        new CreateTeamAction(
+        ViewCreatePlayer.class,
+        new ViewCreatePlayer(
+            new PlayerAction(
+                scanner,
+                this,
+                repositoryFactory.get(CountryRepository.class),
+                new PlayerService(repositoryFactory.get(PlayerRepository.class), em),
+                repositoryFactory.get(TeamRepository.class)),
             scanner,
             this,
-            new TeamService(
-                repositoryFactory.get(CountryRepository.class),
-                repositoryFactory.get(LeagueRepository.class),
-                repositoryFactory.get(TeamRepository.class),
-                em)));
+            new CountryService(repositoryFactory.get(CountryRepository.class), em)));
+
     holder.put(
-        ViewTeamAction.class,
-        new ViewTeamAction(this, repositoryFactory.get(TeamRepository.class)));
+        ViewPlayer.class,
+        new ViewPlayer(
+            new PlayerAction(
+                scanner,
+                this,
+                repositoryFactory.get(CountryRepository.class),
+                new PlayerService(repositoryFactory.get(PlayerRepository.class), em),
+                repositoryFactory.get(TeamRepository.class)),
+            scanner,
+            this,
+            repositoryFactory.get(PlayerRepository.class)));
   }
 }

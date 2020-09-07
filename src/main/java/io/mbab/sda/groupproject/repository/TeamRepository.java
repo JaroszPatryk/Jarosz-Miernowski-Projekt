@@ -26,19 +26,35 @@ public class TeamRepository implements CrudRepository<Team, Integer> {
     return em.createQuery(criteriaQuery.select(root)).getResultList();
   }
 
-  public Optional<Team> findByName(String name) {
+  //  public Optional<Team> findByName(String name) {
+  //
+  //    try {
+  //      CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+  //      var criteriaQuery = criteriaBuilder.createQuery(Team.class);
+  //      var root = criteriaQuery.from(Team.class);
+  //
+  //      return Optional.of(
+  //          em.createQuery(
+  //                  criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"),
+  // name)))
+  //              .getSingleResult());
+  //    } catch (NoResultException ex) {
+  //      return Optional.empty();
+  //    }
+  //  }
+
+  public Team findByName(String name) {
 
     try {
       CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
       var criteriaQuery = criteriaBuilder.createQuery(Team.class);
       var root = criteriaQuery.from(Team.class);
 
-      return Optional.of(
-          em.createQuery(
-                  criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), name)))
-              .getSingleResult());
+      return em.createQuery(
+              criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("name"), name)))
+          .getSingleResult();
     } catch (NoResultException ex) {
-      return Optional.empty();
+      return null;
     }
   }
 

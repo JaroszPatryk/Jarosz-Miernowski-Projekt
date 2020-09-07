@@ -9,7 +9,6 @@ import java.util.UUID;
 @Entity
 @Getter
 @Builder(toBuilder = true)
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"uuid"})
@@ -25,17 +24,20 @@ public class Team {
   @Column(length = 128, nullable = false)
   private String city;
 
-  @ManyToOne
-  private Country country;
+  @ManyToOne private Country country;
 
   @Column(columnDefinition = "int default 0")
   private double value;
 
-  @ManyToOne
-  private League league;
+  @ManyToOne private League league;
 
   @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
   private List<Player> players;
 
   @Transient private UUID uuid = UUID.randomUUID();
+
+  @Override
+  public String toString() {
+    return "Team{" + "name='" + name + '\'' + ", city='" + city + "}";
+  }
 }

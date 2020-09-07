@@ -27,24 +27,36 @@ public class Player {
   @Column(length = 15, nullable = false)
   private String dateOfBirth;
 
+  @ManyToOne private Country country;
 
-
-  @ManyToOne
-  private Country country;
-
-  @ManyToOne
-  private Team team;
+  @ManyToOne private Team team;
 
   @Transient private UUID uuid = UUID.randomUUID();
 
   @Override
   public String toString() {
-    return "Player{" +
-            "id=" + id +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", dateOfBirth='" + dateOfBirth + '\'' +
-            ", country=" + country +
-            '}';
+    String teamName;
+    if (team == null) {
+      teamName = "BRAK";
+    } else {
+      teamName = team.getName();
+    }
+    return "Player{"
+        + "id="
+        + id
+        + ", firstName='"
+        + firstName
+        + '\''
+        + ", lastName='"
+        + lastName
+        + '\''
+        + ", dateOfBirth='"
+        + dateOfBirth
+        + '\''
+        + ", country="
+        + country.getName()
+        + ", team="
+        + teamName
+        + '}';
   }
 }

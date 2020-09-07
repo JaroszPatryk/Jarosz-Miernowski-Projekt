@@ -27,6 +27,4 @@ public class CrudRepositoryFactory {
 
     return (T) repositoryMap.get(repositoryClass);
   }
-
-
 }

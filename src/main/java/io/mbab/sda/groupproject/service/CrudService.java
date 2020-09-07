@@ -1,9 +1,9 @@
-package io.mbab.sda.groupproject.repository;
+package io.mbab.sda.groupproject.service;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CrudRepository<T, ID> {
+public interface CrudService<T, ID> {
 
   List<T> getAll();
 

@@ -16,7 +16,7 @@ public class MenuActionContext {
 
   private MenuAction action;
   private Map<Class<? extends MenuAction>, MenuAction> holder = new HashMap<>();
-  private EntityManager em;
+
 
   public MenuActionContext(
       CustomScanner scanner, CrudRepositoryFactory repositoryFactory, EntityManager em) {

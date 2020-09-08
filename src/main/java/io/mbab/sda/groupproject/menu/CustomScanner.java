@@ -13,7 +13,14 @@ public class CustomScanner {
 
   public double nextDouble() {
 
-    String s = scanner.nextLine();
-    return Double.parseDouble(s);
+    String userInputString = scanner.nextLine();
+    double userInputDouble = 0d;
+    try{
+    userInputDouble = Double.parseDouble(userInputString);
+    }catch(Exception ex){
+      System.out.println("Podano niewłaściwą wartość!. Spróbuj jeszcze raz.");
+      nextDouble();
+    }
+    return userInputDouble;
   }
 }

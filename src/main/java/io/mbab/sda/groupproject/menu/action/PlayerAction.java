@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PlayerAction {
 
-  private final CustomScanner scanner;
+
   private final MenuActionContext ctx;
   private final CountryRepository countryRepository;
   private final PlayerService playerService;

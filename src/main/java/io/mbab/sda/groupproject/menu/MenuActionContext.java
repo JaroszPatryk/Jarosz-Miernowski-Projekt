@@ -81,7 +81,6 @@ public class MenuActionContext {
         ViewCreatePlayer.class,
         new ViewCreatePlayer(
             new PlayerAction(
-                scanner,
                 this,
                 repositoryFactory.get(CountryRepository.class),
                 new PlayerService(repositoryFactory.get(PlayerRepository.class), em),
@@ -94,7 +93,6 @@ public class MenuActionContext {
         ViewPlayer.class,
         new ViewPlayer(
             new PlayerAction(
-                scanner,
                 this,
                 repositoryFactory.get(CountryRepository.class),
                 new PlayerService(repositoryFactory.get(PlayerRepository.class), em),

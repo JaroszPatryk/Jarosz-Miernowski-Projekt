@@ -9,7 +9,6 @@ import io.mbab.sda.groupproject.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class ViewPlayer implements MenuAction {
@@ -56,7 +55,7 @@ public class ViewPlayer implements MenuAction {
       showAllPlayers();
       System.out.println("Wybierz nazwisko:");
       String playerName = cs.nextLine();
-      Player player = playerRepository.findByName(playerName).orElse(null);
+        Player player = playerRepository.findByNameOptional(playerName).orElse(null);
       if (player == null) {
         System.out.println("Nie ma zawodnika o nazwisku " + playerName);
       } else {

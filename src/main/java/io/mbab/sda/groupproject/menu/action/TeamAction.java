@@ -59,12 +59,4 @@ public class TeamAction {
     }
     return false;
   }
-
-  public boolean pressedZero(double input) {
-    if (input == 0) {
-      ctx.use(MainAction.class).execute();
-      return true;
-    }
-    return false;
-  }
 }

@@ -15,16 +15,36 @@ import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class PlayerService {
+public class PlayerService implements CrudService<Player, Integer> {
 
-  private final PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
 
 
-  public Player save(Player player) {
+    public Player save(Player player) {
 
-      if (player.getId() == null) {
-          player = playerRepository.create(player);
-      }
-      return player;
-  }
+        if (player.getId() == null) {
+            player = playerRepository.create(player);
+        }
+        return player;
+    }
+
+    @Override
+    public List<Player> getAll() {
+        return null;
+    }
+
+    @Override
+    public Player findById(Integer integer) {
+        return null;
+    }
+
+    @Override
+    public Player update(Player entity) {
+        return null;
+    }
+
+    @Override
+    public void delete(Integer integer) {
+
+    }
 }

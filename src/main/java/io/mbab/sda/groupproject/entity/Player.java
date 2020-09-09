@@ -12,36 +12,44 @@ import java.util.UUID;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Player {
+public class Player implements CrudEntites {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-  @Column(length = 64, nullable = false)
-  private String firstName;
+    @Column(length = 64, nullable = false)
+    private String firstName;
 
-  @Column(length = 64, nullable = false)
-  private String lastName;
+    @Column(length = 64, nullable = false)
+    private String lastName;
 
-  @Column(length = 15, nullable = false)
-  private String dateOfBirth;
+    @Column(length = 15, nullable = false)
+    private String dateOfBirth;
 
-  @ManyToOne private Country country;
+    @ManyToOne
+    private Country country;
 
-  @ManyToOne private Team team;
+    @ManyToOne
+    private Team team;
 
-  @Transient private UUID uuid = UUID.randomUUID();
+    @Transient
+    private UUID uuid = UUID.randomUUID();
 
-  @Override
-  public String toString() {
-    String teamName;
-    if (team == null) {
-      teamName = "BRAK";
-    } else {
-      teamName = team.getName();
+    @Override
+    public Integer getId() {
+        return this.id;
     }
-    return "Player{"
+
+    @Override
+    public String toString() {
+        String teamName;
+        if (team == null) {
+            teamName = "BRAK";
+        } else {
+            teamName = team.getName();
+        }
+        return "Player{"
         + "id="
         + id
         + ", firstName='"

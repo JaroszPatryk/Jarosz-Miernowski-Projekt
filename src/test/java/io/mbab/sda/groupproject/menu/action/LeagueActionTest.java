@@ -6,6 +6,7 @@ import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.MainAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.repository.CountryRepository;
+import io.mbab.sda.groupproject.repository.CrudRepository;
 import io.mbab.sda.groupproject.repository.LeagueRepository;
 import io.mbab.sda.groupproject.service.LeagueService;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
-import java.util.zip.CheckedOutputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -57,7 +57,7 @@ class LeagueActionTest {
     // given
     CountryRepository countryRepository = mock(CountryRepository.class);
     LeagueRepository leagueRepository = mock(LeagueRepository.class);
-    EntityManager em = mock(EntityManager.class);
+
     LeagueService leagueService = new LeagueService(countryRepository, leagueRepository);
 
     LeagueAction leagueAction = new LeagueAction(menuActionContext, leagueService);
@@ -81,7 +81,7 @@ class LeagueActionTest {
 
     CountryRepository countryRepository = mock(CountryRepository.class);
     LeagueRepository leagueRepository = mock(LeagueRepository.class);
-    EntityManager em = mock(EntityManager.class);
+
     leagueService = new LeagueService(countryRepository, leagueRepository);
 
     LeagueAction leagueAction = new LeagueAction(menuActionContext, leagueService);

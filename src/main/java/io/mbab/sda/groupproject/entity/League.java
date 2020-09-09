@@ -12,24 +12,31 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"uuid"})
-public class League {
+public class League implements CrudEntites {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-  @Column(length = 128, nullable = false)
-  private String name;
+    @Column(length = 128, nullable = false)
+    private String name;
 
-  @ManyToOne private Country country;
+    @ManyToOne
+    private Country country;
 
-  @OneToMany(mappedBy = "league", cascade = CascadeType.ALL)
-  private List<Team> teams;
+    @OneToMany(mappedBy = "league", cascade = CascadeType.ALL)
+    private List<Team> teams;
 
-  @Transient private UUID uuid = UUID.randomUUID();
+    @Transient
+    private UUID uuid = UUID.randomUUID();
 
-  @Override
-  public String toString() {
-    return "League{" + "name='" + name + '\'' + ", country=" + country.getName() + '}';
-  }
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "League{" + "name='" + name + '\'' + ", country=" + country.getName() + '}';
+    }
 }

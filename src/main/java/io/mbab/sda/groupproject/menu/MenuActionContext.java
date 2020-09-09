@@ -8,7 +8,6 @@ import io.mbab.sda.groupproject.service.LeagueService;
 import io.mbab.sda.groupproject.service.PlayerService;
 import io.mbab.sda.groupproject.service.TeamService;
 
-import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.Map;
 

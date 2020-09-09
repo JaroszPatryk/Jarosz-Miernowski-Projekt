@@ -75,7 +75,7 @@ class PlayerActionTest {
     void shouldReturnCountryWhenCountryIsNotInDatabase(){
         //given
         String countryName = "Polska";
-        when(countryRepository.findByName(countryName)).thenReturn(Optional.empty());
+        when(countryRepository.findByNameOptional(countryName)).thenReturn(Optional.empty());
         //when
         Country country = playerAction.getCountry(countryName);
         //then
@@ -90,7 +90,7 @@ class PlayerActionTest {
         //given
         Country newCountry = new Country(1,"Polska");
         String countryName = "Polska";
-        when(countryRepository.findByName(countryName)).thenReturn(Optional.of(newCountry));
+        when(countryRepository.findByNameOptional(countryName)).thenReturn(Optional.of(newCountry));
         //when
         Country country = playerAction.getCountry(countryName);
         //then

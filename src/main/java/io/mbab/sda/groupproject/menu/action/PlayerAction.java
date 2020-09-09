@@ -43,7 +43,7 @@ public class PlayerAction {
 
     public Country getCountry(String countryName) {
         return countryRepository
-                .findByName(countryName)
+                .findByNameOptional(countryName)
                 .orElseGet(() -> Country.builder().name(countryName).build());
     }
 

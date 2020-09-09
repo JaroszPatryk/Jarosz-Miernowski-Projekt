@@ -12,7 +12,6 @@ public class CountryService implements CrudService<Country, Integer> {
 
   private final CountryRepository countryRepository;
 
-
   public Country save(Country country) {
 
     if (country.getId() == null) {
@@ -24,24 +23,21 @@ public class CountryService implements CrudService<Country, Integer> {
 
   @Override
   public List<Country> getAll() {
-    return null;
+    return countryRepository.getAll();
   }
 
   @Override
   public Country findById(Integer integer) {
-    return null;
-  }
-
-  @Override
-  public Country create(Country entity) {
-    return null;
+    return countryRepository.findById(integer);
   }
 
   @Override
   public Country update(Country entity) {
-    return null;
+    return countryRepository.update(entity);
   }
 
   @Override
-  public void delete(Integer integer) {}
+  public void delete(Integer integer) {
+    countryRepository.delete(integer);
+  }
 }

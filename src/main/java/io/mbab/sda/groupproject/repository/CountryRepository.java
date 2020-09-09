@@ -2,6 +2,7 @@ package io.mbab.sda.groupproject.repository;
 
 import io.mbab.sda.groupproject.entity.Country;
 import io.mbab.sda.groupproject.entity.Player;
+import io.mbab.sda.groupproject.mapper.CrudMapper;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
@@ -52,11 +53,14 @@ public class CountryRepository implements CrudRepository<Country, Integer> {
   @Override
   public Country create(Country entity) {
 
-    if (entity.getId() != null) {
+    try {
       em.getTransaction().begin();
       em.persist(entity);
       em.getTransaction().commit();
+    } catch (Exception ex) {
+      em.getTransaction().rollback();
     }
+
     return entity;
   }
 

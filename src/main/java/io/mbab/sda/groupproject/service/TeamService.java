@@ -20,46 +20,32 @@ public class TeamService implements CrudService<Team, Integer> {
   private final CountryRepository countryRepository;
   private final LeagueRepository leagueRepository;
   private final TeamRepository teamRepository;
-  private final EntityManager em;
+
 
   public Team save(Country country, League league, Team team) {
 
-    try {
-      em.getTransaction().begin();
       if (country.getId() == null) {
-        country = countryRepository.create(country);
+          country = countryRepository.create(country);
       }
 
       league = league.toBuilder().country(country).build();
       if (league.getId() == null) {
-        league = leagueRepository.create(league);
+          league = leagueRepository.create(league);
       }
 
       team = team.toBuilder().league(league).build();
-      em.persist(team);
-      em.getTransaction().commit();
+      team = teamRepository.create(team);
 
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
-    }
-
-    return team;
+      return team;
   }
 
   public Team save(Team team) {
 
-    try {
-      em.getTransaction().begin();
       if (team.getId() == null) {
-        team = teamRepository.create(team);
+          team = teamRepository.create(team);
       }
-      em.persist(team);
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
-    }
 
-    return team;
+      return team;
   }
 
   public Optional<Country> getCountryByName(String name) {
@@ -72,7 +58,7 @@ public class TeamService implements CrudService<Team, Integer> {
 
   @Override
   public List<Team> getAll() {
-    return null;
+      return teamRepository.getAll();
   }
 
   @Override

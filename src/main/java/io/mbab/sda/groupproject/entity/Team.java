@@ -27,7 +27,7 @@ public class Team {
   @ManyToOne private Country country;
 
   @Column(columnDefinition = "int default 0")
-  private double value;
+  private String value;
 
   @ManyToOne private League league;
 

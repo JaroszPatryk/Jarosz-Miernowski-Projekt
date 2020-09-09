@@ -11,19 +11,14 @@ import java.util.List;
 public class CountryService implements CrudService<Country, Integer> {
 
   private final CountryRepository countryRepository;
-  private final EntityManager em;
+
 
   public Country save(Country country) {
-    try {
-      em.getTransaction().begin();
-      if (country.getId() == null) {
-        country = countryRepository.create(country);
-      }
-      em.persist(country);
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
+
+    if (country.getId() == null) {
+      country = countryRepository.create(country);
     }
+
     return country;
   }
 

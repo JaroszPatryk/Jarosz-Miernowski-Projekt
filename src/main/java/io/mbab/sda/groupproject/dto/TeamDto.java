@@ -32,7 +32,7 @@ public class TeamDto {
   @NotBlank
   private Country country;
 
-  private double value;
+  private String value;
 
   private League league;
 

@@ -17,39 +17,37 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LeagueService implements CrudService<LeagueService, Integer> {
 
-  private final CountryRepository countryRepository;
-  private final LeagueRepository leagueRepository;
-  private final EntityManager em;
+    private final CountryRepository countryRepository;
+    private final LeagueRepository leagueRepository;
 
-  public League save(Country country, League league) {
-    League newLeague = null;
-    try {
-      em.getTransaction().begin();
-      countryRepository.create(country);
-      var leagueWithCountry = league.toBuilder().country(country).build();
-      newLeague = leagueRepository.create(leagueWithCountry);
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
+
+//  public League save(Country country, League league) {
+//    League newLeague = null;
+//    try {
+//      em.getTransaction().begin();
+//      countryRepository.create(country);
+//      var leagueWithCountry = league.toBuilder().country(country).build();
+//      newLeague = leagueRepository.create(leagueWithCountry);
+//      em.getTransaction().commit();
+//    } catch (Exception ex) {
+//    em.getTransaction().rollback();
+//  }
+//
+//    if(country.getId()==null){
+//      countryRepository.create(country);
+//    }
+//
+//    return newLeague;
+//  }
+
+    public League save(League league) {
+
+        if (league.getId() == null) {
+            league = leagueRepository.create(league);
+        }
+
+        return league;
     }
-    return newLeague;
-  }
-
-  public League save(League league) {
-
-    try {
-      em.getTransaction().begin();
-      if (league.getId() == null) {
-        league = leagueRepository.create(league);
-      }
-      em.persist(league);
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
-    }
-
-    return league;
-  }
 
   public Optional<Country> getCountryByName(String name) {
     return countryRepository.findByName(name);

@@ -9,8 +9,6 @@ import io.mbab.sda.groupproject.menu.action.PlayerAction;
 import io.mbab.sda.groupproject.service.CountryService;
 import lombok.RequiredArgsConstructor;
 
-import java.util.SortedMap;
-
 @RequiredArgsConstructor
 public class ViewCreatePlayer implements MenuAction {
 
@@ -52,8 +50,9 @@ public class ViewCreatePlayer implements MenuAction {
         playerAction.getPlayerBuilder(firstName, lastName, dateOfBirth, country);
     do {
       System.out.println("!!! DODAJESZ PIŁKARZA !!!");
-      System.out.println("Podaj drużynę w której gracz występuję:");
+      System.out.println("Podaj nazwę drużyny w której gracz występuję:");
       System.out.println("Pusty znak - piłkarz jest obecnie bez drużyny");
+      playerAction.getAll().forEach(System.out::println);
       String teamName = cs.nextLine();
       playerAction.pressedZero(teamName);
       isTeamFound = playerAction.searchTeam(playerBuilder, teamName);
@@ -65,7 +64,7 @@ public class ViewCreatePlayer implements MenuAction {
     player = playerBuilder.build();
     playerAction.createPlayer(player);
 
-    System.out.println("Dodałeś piłkarza o danych: " + firstName + " " + lastName);
+    System.out.println("Dodałeś piłkarza o danych: \n" + firstName + " " + lastName);
     if (player.getTeam() == null) {
       System.out.println("Bez drużyny");
     } else {

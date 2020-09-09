@@ -16,7 +16,7 @@ public class Application {
     var repositoryFactory = new CrudRepositoryFactory(emFactory);
     var scanner = new CustomScanner();
 
-    new MenuActionContext(scanner, repositoryFactory, emFactory.createEntityManager())
+    new MenuActionContext(scanner, repositoryFactory)
         .use(MainAction.class)
         .execute();
   }

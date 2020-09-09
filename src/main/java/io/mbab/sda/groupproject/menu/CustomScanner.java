@@ -11,16 +11,5 @@ public class CustomScanner {
     return scanner.nextLine();
   }
 
-  public double nextDouble() {
 
-    String userInputString = scanner.nextLine();
-    double userInputDouble = 0d;
-    try{
-    userInputDouble = Double.parseDouble(userInputString);
-    }catch(Exception ex){
-      System.out.println("Podano niewłaściwą wartość!. Spróbuj jeszcze raz.");
-      nextDouble();
-    }
-    return userInputDouble;
-  }
 }

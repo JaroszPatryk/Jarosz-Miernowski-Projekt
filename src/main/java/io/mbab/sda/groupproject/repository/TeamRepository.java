@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,10 +71,12 @@ public class TeamRepository implements CrudRepository<Team, Integer> {
 
   @Override
   public Team create(Team entity) {
-    if (entity.getId() != null) {
+    try {
       em.getTransaction().begin();
       em.persist(entity);
       em.getTransaction().commit();
+    } catch (Exception ex) {
+      em.getTransaction().rollback();
     }
     return entity;
   }

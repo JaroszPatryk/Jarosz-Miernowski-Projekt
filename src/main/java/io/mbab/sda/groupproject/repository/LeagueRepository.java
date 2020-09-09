@@ -52,10 +52,12 @@ public class LeagueRepository implements CrudRepository<League, Integer> {
 
   @Override
   public League create(League entity) {
-    if (entity.getId() != null) {
+    try {
       em.getTransaction().begin();
       em.persist(entity);
       em.getTransaction().commit();
+    } catch (Exception ex) {
+      em.getTransaction().rollback();
     }
     return entity;
   }

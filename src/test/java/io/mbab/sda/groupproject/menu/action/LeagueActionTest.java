@@ -58,7 +58,7 @@ class LeagueActionTest {
     CountryRepository countryRepository = mock(CountryRepository.class);
     LeagueRepository leagueRepository = mock(LeagueRepository.class);
     EntityManager em = mock(EntityManager.class);
-    LeagueService leagueService = new LeagueService(countryRepository, leagueRepository, em);
+    LeagueService leagueService = new LeagueService(countryRepository, leagueRepository);
 
     LeagueAction leagueAction = new LeagueAction(menuActionContext, leagueService);
 
@@ -82,7 +82,7 @@ class LeagueActionTest {
     CountryRepository countryRepository = mock(CountryRepository.class);
     LeagueRepository leagueRepository = mock(LeagueRepository.class);
     EntityManager em = mock(EntityManager.class);
-    leagueService = new LeagueService(countryRepository, leagueRepository, em);
+    leagueService = new LeagueService(countryRepository, leagueRepository);
 
     LeagueAction leagueAction = new LeagueAction(menuActionContext, leagueService);
 

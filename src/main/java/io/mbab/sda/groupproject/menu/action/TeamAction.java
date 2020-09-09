@@ -28,14 +28,14 @@ public class TeamAction {
     teamService.save(team);
   }
 
-  public Team getTeam(String name, String cityName, Country country, League league, double value) {
+  public Team getTeam(String name, String cityName, Country country, League league, String value) {
     return Team.builder()
-        .name(name)
-        .country(country)
-        .city(cityName)
-        .value(value)
-        .league(league)
-        .build();
+            .name(name)
+            .country(country)
+            .city(cityName)
+            .value(value)
+            .league(league)
+            .build();
   }
 
   public League getLeague(String leagueName) {

@@ -49,10 +49,12 @@ public class PlayerRepository implements CrudRepository<Player, Integer> {
 
   @Override
   public Player create(Player entity) {
-    if (entity.getId() != null) {
+    try {
       em.getTransaction().begin();
       em.persist(entity);
       em.getTransaction().commit();
+    } catch (Exception ex) {
+      em.getTransaction().rollback();
     }
     return entity;
   }

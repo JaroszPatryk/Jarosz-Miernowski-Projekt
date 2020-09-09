@@ -18,20 +18,13 @@ import java.util.List;
 public class PlayerService {
 
   private final PlayerRepository playerRepository;
-  private final EntityManager em;
+
 
   public Player save(Player player) {
-    try {
-      em.getTransaction().begin();
-      if (player.getId() == null) {
-        player = playerRepository.create(player);
-      }
-      em.persist(player);
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
-    }
 
-    return player;
+      if (player.getId() == null) {
+          player = playerRepository.create(player);
+      }
+      return player;
   }
 }

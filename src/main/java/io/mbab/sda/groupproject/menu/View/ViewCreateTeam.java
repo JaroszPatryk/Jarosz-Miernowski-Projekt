@@ -56,7 +56,7 @@ public class ViewCreateTeam implements MenuAction {
     teamAction.saveLeague(league);
     System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
     System.out.println("Podaj wartość drużyny");
-    double value = cs.nextDouble();
+    String value = cs.nextLine();
     teamAction.pressedZero(value);
     //    double value = 1000;
 

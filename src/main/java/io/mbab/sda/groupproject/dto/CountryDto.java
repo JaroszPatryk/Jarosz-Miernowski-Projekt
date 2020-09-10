@@ -11,18 +11,18 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Value
-@Builder
-public class CountryDto {
+@Builder(toBuilder = true)
+public class CountryDto implements CrudDto<Integer> {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-  @NotBlank
-  @Size(max = 64)
-  private String name;
+    @NotBlank
+    @Size(max = 64)
+    private String name;
 
-  public Country toEntity() {
+    public Country toEntity() {
     return Country.builder().id(this.id).name(this.name).build();
   }
 

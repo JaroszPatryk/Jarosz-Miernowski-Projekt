@@ -1,5 +1,7 @@
 package io.mbab.sda.groupproject.menu.View;
 
+import io.mbab.sda.groupproject.dto.CountryDto;
+import io.mbab.sda.groupproject.dto.LeagueDto;
 import io.mbab.sda.groupproject.entity.Country;
 import io.mbab.sda.groupproject.entity.League;
 import io.mbab.sda.groupproject.menu.CustomScanner;
@@ -31,7 +33,7 @@ public class ViewCreateLeague implements MenuAction {
     ctx.execute();
   }
 
-  public League createLeague(String leagueName) {
+  public LeagueDto createLeague(String leagueName) {
 
     System.out.println("!!! DODAJESZ LIGĘ !!!");
     System.out.println("Z jakiego Państwa jest ta liga?");
@@ -39,10 +41,10 @@ public class ViewCreateLeague implements MenuAction {
     String countryName = cs.nextLine();
     leagueAction.pressedZero(countryName);
 
-    Country country = leagueAction.getCountry(countryName);
+    CountryDto country = leagueAction.getCountry(countryName);
     countryService.save(country);
 
-    League league = leagueAction.getLeague(leagueName, country);
+    LeagueDto league = leagueAction.getLeague(leagueName, country);
 
     leagueAction.save(league);
 

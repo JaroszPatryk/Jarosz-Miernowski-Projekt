@@ -11,10 +11,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Value
-@Builder
-public class TeamDto {
+@Builder(toBuilder = true)
+public class TeamDto implements CrudDto<Integer> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,35 +31,35 @@ public class TeamDto {
 
   @Size(max = 128)
   @NotBlank
-  private Country country;
+  private CountryDto country;
 
   private String value;
 
-  private League league;
+  private LeagueDto league;
 
-  private List<Player> players;
+  private List<PlayerDto> players;
 
   public Team toEntity() {
     return Team.builder()
-        .country(this.country)
-        .league(this.league)
-        .value(this.value)
-        .city(this.city)
-        .name(this.name)
-        .id(this.id)
-        .players(this.players)
+            .country(this.country.toEntity())
+            .league(this.league.toEntity())
+            .value(this.value)
+            .city(this.city)
+            .name(this.name)
+            .id(this.id)
+            .players(this.players.stream().map(PlayerDto::toEntity).collect(Collectors.toUnmodifiableList()))
         .build();
   }
 
   public static TeamDto toDto(Team team) {
     return TeamDto.builder()
-        .country(team.getCountry())
-        .league(team.getLeague())
-        .value(team.getValue())
-        .city(team.getCity())
-        .name(team.getName())
-        .id(team.getId())
-        .players(team.getPlayers())
+            .country(CountryDto.toDto(team.getCountry()))
+            .league(LeagueDto.toDto(team.getLeague()))
+            .value(team.getValue())
+            .city(team.getCity())
+            .name(team.getName())
+            .id(team.getId())
+            .players(team.getPlayers().stream().map(PlayerDto::toDto).collect(Collectors.toUnmodifiableList()))
         .build();
   }
 }

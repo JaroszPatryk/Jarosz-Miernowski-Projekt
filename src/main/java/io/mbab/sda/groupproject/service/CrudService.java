@@ -3,15 +3,17 @@ package io.mbab.sda.groupproject.service;
 import java.util.List;
 import java.util.Optional;
 
-public interface CrudService<T, ID> {
+public interface CrudService<DTO, ID> {
 
-  List<T> getAll();
+    List<DTO> getAll();
 
-  T findById(ID id);
+    DTO findById(ID id);
 
-  T save(T entity);
+    DTO save(DTO entity);
 
-  T update(T entity);
+    DTO update(DTO entity);
 
-  void delete(ID id);
+    void delete(ID id);
+
+    Optional<DTO> findByIdOptional(ID id);
 }

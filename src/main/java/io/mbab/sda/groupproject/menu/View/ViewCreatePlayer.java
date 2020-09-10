@@ -1,5 +1,7 @@
 package io.mbab.sda.groupproject.menu.View;
 
+import io.mbab.sda.groupproject.dto.CountryDto;
+import io.mbab.sda.groupproject.dto.PlayerDto;
 import io.mbab.sda.groupproject.entity.Country;
 import io.mbab.sda.groupproject.entity.Player;
 import io.mbab.sda.groupproject.menu.CustomScanner;
@@ -41,13 +43,13 @@ public class ViewCreatePlayer implements MenuAction {
     System.out.println("Podaj kraj pochodzenia gracza:");
     String countryName = cs.nextLine();
     playerAction.pressedZero(countryName);
-    Country country = playerAction.getCountry(countryName);
+      CountryDto country = playerAction.getCountry(countryName);
     countryService.save(country);
 
-    Player player = null;
-    boolean isTeamFound = false;
-    Player.PlayerBuilder playerBuilder =
-        playerAction.getPlayerBuilder(firstName, lastName, dateOfBirth, country);
+      PlayerDto player = null;
+      boolean isTeamFound = false;
+      PlayerDto.PlayerDtoBuilder playerBuilder =
+              playerAction.getPlayerBuilder(firstName, lastName, dateOfBirth, country);
     do {
       System.out.println("!!! DODAJESZ PIŁKARZA !!!");
       System.out.println("Podaj nazwę drużyny w której gracz występuję:");

@@ -2,8 +2,8 @@ package io.mbab.sda.groupproject.mapper;
 
 public interface CrudMapper<ENTITY, DTO> {
 
+    ENTITY dtoToEntity(DTO dto);
 
-     ENTITY dtoToEntity(DTO dto);
-     DTO entityToDto(ENTITY entity);
+    DTO entityToDto(ENTITY entity);
 
 }

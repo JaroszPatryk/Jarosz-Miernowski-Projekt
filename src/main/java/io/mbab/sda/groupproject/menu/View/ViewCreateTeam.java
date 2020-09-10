@@ -1,5 +1,8 @@
 package io.mbab.sda.groupproject.menu.View;
 
+import io.mbab.sda.groupproject.dto.CountryDto;
+import io.mbab.sda.groupproject.dto.LeagueDto;
+import io.mbab.sda.groupproject.dto.TeamDto;
 import io.mbab.sda.groupproject.entity.Country;
 import io.mbab.sda.groupproject.entity.League;
 import io.mbab.sda.groupproject.entity.Team;
@@ -39,7 +42,7 @@ public class ViewCreateTeam implements MenuAction {
     String countryName = cs.nextLine();
     teamAction.pressedZero(countryName);
 
-    Country country = teamAction.getCountry(countryName);
+      CountryDto country = teamAction.getCountry(countryName);
     teamAction.saveCountry(country);
 
     System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
@@ -47,7 +50,7 @@ public class ViewCreateTeam implements MenuAction {
     String leagueName = cs.nextLine();
     teamAction.pressedZero(leagueName);
 
-    League league = teamAction.getLeague(leagueName);
+      LeagueDto league = teamAction.getLeague(leagueName);
     if (league == null) {
       System.out.println("Podałeś nową nazwę ligi.");
       System.out.println("Dodaj nową ligę albo wciśnij '0'.");
@@ -60,7 +63,7 @@ public class ViewCreateTeam implements MenuAction {
     teamAction.pressedZero(value);
     //    double value = 1000;
 
-    Team team = teamAction.getTeam(teamName, cityName, country, league, value);
+      TeamDto team = teamAction.getTeam(teamName, cityName, country, league, value);
     teamAction.saveTeam(team);
 
     System.out.println("Dodałeś drużynę o danych: " + teamName);

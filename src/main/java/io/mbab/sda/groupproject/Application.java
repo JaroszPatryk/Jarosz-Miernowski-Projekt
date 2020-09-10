@@ -24,13 +24,9 @@ public class Application {
     LeagueRepository leagueRepository = repositoryFactory.get(LeagueRepository.class);
     PlayerRepository playerRepository = repositoryFactory.get(PlayerRepository.class);
 
-    final CountryService countryService = new CountryService(countryRepository);
-    final TeamService teamService = new TeamService(countryRepository, leagueRepository, teamRepository);
-    final LeagueService leagueService = new LeagueService(countryRepository, leagueRepository);
-    final PlayerService playerService = new PlayerService(playerRepository);
 
     InitDatabase initDatabase =
-            new InitDatabase(countryService, teamService, leagueService, playerService);
+            new InitDatabase(countryRepository, teamRepository, leagueRepository, playerRepository);
 
     initDatabase.init();
 

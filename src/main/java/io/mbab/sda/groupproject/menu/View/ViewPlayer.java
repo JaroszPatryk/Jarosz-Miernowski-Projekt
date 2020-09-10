@@ -1,11 +1,13 @@
 package io.mbab.sda.groupproject.menu.View;
 
+import io.mbab.sda.groupproject.dto.PlayerDto;
 import io.mbab.sda.groupproject.entity.Player;
 import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.MenuAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.menu.action.PlayerAction;
 import io.mbab.sda.groupproject.repository.PlayerRepository;
+import io.mbab.sda.groupproject.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class ViewPlayer implements MenuAction {
 
   private final PlayerAction playerAction;
   private final CustomScanner cs;
-  private final MenuActionContext ctx;
-  private final PlayerRepository playerRepository;
+    private final MenuActionContext ctx;
+    private final PlayerService playerService;
 
   @Override
   public void execute() {
@@ -45,7 +47,7 @@ public class ViewPlayer implements MenuAction {
         System.out.println("Nie wpisano numeru!");
         ctx.execute();
       }
-      Player player = playerRepository.findByIdOptional(id).orElse(null);
+        PlayerDto player = playerService.findByIdOptional(id).orElse(null);
       if (player == null) {
         System.out.println("Nie znalezniono zawonika o id " + input);
       }
@@ -54,8 +56,8 @@ public class ViewPlayer implements MenuAction {
     } else if (input.equals("2")) {
       showAllPlayers();
       System.out.println("Wybierz nazwisko:");
-      String playerName = cs.nextLine();
-        Player player = playerRepository.findByNameOptional(playerName).orElse(null);
+        String playerName = cs.nextLine();
+        PlayerDto player = playerService.findByNameOptional(playerName).orElse(null);
       if (player == null) {
         System.out.println("Nie ma zawodnika o nazwisku " + playerName);
       } else {
@@ -70,11 +72,11 @@ public class ViewPlayer implements MenuAction {
   }
 
   private void showAllPlayers() {
-    List<Player> allPlayers = playerRepository.getAll();
-    int i = 1;
-    for (Player p : allPlayers) {
-      System.out.println(i + ". " + p);
-      i++;
-    }
+      List<PlayerDto> allPlayers = playerService.getAll();
+      int i = 1;
+      for (PlayerDto p : allPlayers) {
+          System.out.println(i + ". " + p);
+          i++;
+      }
   }
 }

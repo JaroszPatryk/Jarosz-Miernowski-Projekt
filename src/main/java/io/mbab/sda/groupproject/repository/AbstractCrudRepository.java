@@ -2,14 +2,18 @@ package io.mbab.sda.groupproject.repository;
 
 import io.mbab.sda.groupproject.entity.Team;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 @AllArgsConstructor
 public class AbstractCrudRepository<ENTITY, ID> implements CrudRepository<ENTITY, ID> {
 
@@ -57,25 +61,39 @@ public class AbstractCrudRepository<ENTITY, ID> implements CrudRepository<ENTITY
     }
   }
 
-  @Override
-  public ENTITY findById(ID integer) {
-    CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-    var criteriaQuery = criteriaBuilder.createQuery(entityClass);
-    var root = criteriaQuery.from(entityClass);
-    return em.createQuery(
-            criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), integer)))
-            .getSingleResult();
-  }
-
-  @Override
-  public ENTITY create(ENTITY entity) {
-    try {
-      em.getTransaction().begin();
-      em.persist(entity);
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
+    @Override
+    public ENTITY findById(ID integer) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        var criteriaQuery = criteriaBuilder.createQuery(entityClass);
+        var root = criteriaQuery.from(entityClass);
+        return em.createQuery(
+                criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), integer)))
+                .getSingleResult();
     }
+
+    @Override
+    public Optional<ENTITY> findByIdOptional(ID integer) {
+        try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            var criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            var root = criteriaQuery.from(entityClass);
+            return Optional.of(em.createQuery(
+                    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), integer)))
+                    .getSingleResult());
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public ENTITY create(ENTITY entity) {
+        try {
+            em.getTransaction().begin();
+            em.persist(entity);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+        }
     return entity;
   }
 

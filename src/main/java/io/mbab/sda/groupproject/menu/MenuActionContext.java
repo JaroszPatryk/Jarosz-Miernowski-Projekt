@@ -1,5 +1,9 @@
 package io.mbab.sda.groupproject.menu;
 
+import io.mbab.sda.groupproject.mapper.CountryMapper;
+import io.mbab.sda.groupproject.mapper.LeagueMapper;
+import io.mbab.sda.groupproject.mapper.PlayerMapper;
+import io.mbab.sda.groupproject.mapper.TeamMapper;
 import io.mbab.sda.groupproject.menu.View.*;
 import io.mbab.sda.groupproject.menu.action.*;
 import io.mbab.sda.groupproject.repository.*;
@@ -13,14 +17,12 @@ import java.util.Map;
 
 public class MenuActionContext {
 
-  private MenuAction action;
-  private Map<Class<? extends MenuAction>, MenuAction> holder = new HashMap<>();
+    private MenuAction action;
+    private Map<Class<? extends MenuAction>, MenuAction> holder = new HashMap<>();
 
-
-  public MenuActionContext(
-          CustomScanner scanner, CrudRepositoryFactory repositoryFactory) {
-      initHolder(scanner, repositoryFactory);
-  }
+    public MenuActionContext(CustomScanner scanner, CrudRepositoryFactory repositoryFactory) {
+        initHolder(scanner, repositoryFactory);
+    }
 
     public MenuActionContext use(Class<? extends MenuAction> actionClass) {
         action = holder.get(actionClass);
@@ -32,8 +34,7 @@ public class MenuActionContext {
         action.execute();
     }
 
-    private void initHolder(
-            CustomScanner scanner, CrudRepositoryFactory repositoryFactory) {
+    private void initHolder(CustomScanner scanner, CrudRepositoryFactory repositoryFactory) {
         holder.put(MainAction.class, new MainAction(scanner, this));
         holder.put(
                 ViewCreateLeague.class,
@@ -43,9 +44,12 @@ public class MenuActionContext {
                                 this,
                                 new LeagueService(
                                         repositoryFactory.get(CountryRepository.class),
-                                        repositoryFactory.get(LeagueRepository.class))),
+                                        repositoryFactory.get(LeagueRepository.class),
+                                        new LeagueMapper(),
+                                        new CountryMapper())),
                         this,
-                        new CountryService(repositoryFactory.get(CountryRepository.class))));
+                        new CountryService(
+                                repositoryFactory.get(CountryRepository.class), new CountryMapper())));
 
         holder.put(
                 ViewCreateTeam.class,
@@ -55,11 +59,17 @@ public class MenuActionContext {
                                 new TeamService(
                                         repositoryFactory.get(CountryRepository.class),
                                         repositoryFactory.get(LeagueRepository.class),
-                                        repositoryFactory.get(TeamRepository.class)),
-                                new CountryService(repositoryFactory.get(CountryRepository.class)),
+                                        repositoryFactory.get(TeamRepository.class),
+                                        new TeamMapper(),
+                                        new CountryMapper(),
+                                        new LeagueMapper()),
+                                new CountryService(
+                                        repositoryFactory.get(CountryRepository.class), new CountryMapper()),
                                 new LeagueService(
                                         repositoryFactory.get(CountryRepository.class),
-                                        repositoryFactory.get(LeagueRepository.class))),
+                                        repositoryFactory.get(LeagueRepository.class),
+                                        new LeagueMapper(),
+                                        new CountryMapper())),
                         scanner,
                         this,
                         new ViewCreateLeague(
@@ -68,32 +78,52 @@ public class MenuActionContext {
                                         this,
                                         new LeagueService(
                                                 repositoryFactory.get(CountryRepository.class),
-                                                repositoryFactory.get(LeagueRepository.class))),
+                                                repositoryFactory.get(LeagueRepository.class),
+                                                new LeagueMapper(),
+                                                new CountryMapper())),
                                 this,
-                                new CountryService(repositoryFactory.get(CountryRepository.class)))));
+                                new CountryService(
+                                        repositoryFactory.get(CountryRepository.class), new CountryMapper()))));
 
         holder.put(
                 ViewCreatePlayer.class,
                 new ViewCreatePlayer(
                         new PlayerAction(
                                 this,
-                                repositoryFactory.get(CountryRepository.class),
-                                new PlayerService(repositoryFactory.get(PlayerRepository.class)),
-                                repositoryFactory.get(TeamRepository.class)),
+                                new CountryService(
+                                        repositoryFactory.get(CountryRepository.class), new CountryMapper()),
+                                new PlayerService(
+                                        repositoryFactory.get(PlayerRepository.class), new PlayerMapper()),
+                                new TeamService(
+                                        repositoryFactory.get(CountryRepository.class),
+                                        repositoryFactory.get(LeagueRepository.class),
+                                        repositoryFactory.get(TeamRepository.class),
+                                        new TeamMapper(),
+                                        new CountryMapper(),
+                                        new LeagueMapper())),
                         scanner,
                         this,
-                        new CountryService(repositoryFactory.get(CountryRepository.class))));
+                        new CountryService(
+                                repositoryFactory.get(CountryRepository.class), new CountryMapper())));
 
         holder.put(
                 ViewPlayer.class,
                 new ViewPlayer(
                         new PlayerAction(
                                 this,
-                                repositoryFactory.get(CountryRepository.class),
-                                new PlayerService(repositoryFactory.get(PlayerRepository.class)),
-                                repositoryFactory.get(TeamRepository.class)),
+                                new CountryService(
+                                        repositoryFactory.get(CountryRepository.class), new CountryMapper()),
+                                new PlayerService(
+                                        repositoryFactory.get(PlayerRepository.class), new PlayerMapper()),
+                                new TeamService(
+                                        repositoryFactory.get(CountryRepository.class),
+                                        repositoryFactory.get(LeagueRepository.class),
+                                        repositoryFactory.get(TeamRepository.class),
+                                        new TeamMapper(),
+                                        new CountryMapper(),
+                                        new LeagueMapper())),
                         scanner,
                         this,
-                        repositoryFactory.get(PlayerRepository.class)));
-  }
+                        new PlayerService(repositoryFactory.get(PlayerRepository.class), new PlayerMapper())));
+    }
 }

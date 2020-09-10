@@ -8,7 +8,6 @@ import io.mbab.sda.groupproject.repository.CountryRepository;
 import io.mbab.sda.groupproject.repository.LeagueRepository;
 import io.mbab.sda.groupproject.repository.PlayerRepository;
 import io.mbab.sda.groupproject.repository.TeamRepository;
-import io.mbab.sda.groupproject.service.CountryService;
 import io.mbab.sda.groupproject.service.LeagueService;
 import io.mbab.sda.groupproject.service.PlayerService;
 import io.mbab.sda.groupproject.service.TeamService;
@@ -17,10 +16,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class InitDatabase {
 
-    private final CountryService countryService;
-    private final TeamService teamService;
-    private final LeagueService leagueService;
-    private final PlayerService playerService;
+    private final CountryRepository countryRepository;
+    private final TeamRepository teamRepository;
+    private final LeagueRepository leagueRepository;
+    private final PlayerRepository playerRepository;
 
     public void init() {
 
@@ -74,14 +73,14 @@ public class InitDatabase {
 
     private Country addCountryToDatabase(String name) {
         Country country = Country.builder().name(name).build();
-        return countryService.save(country);
+        return countryRepository.create(country);
     }
 
     private Team addTeamToDatabase(
             String name, String city, String value, Country country, League league) {
         Team team =
                 Team.builder().name(name).city(city).value(value).country(country).league(league).build();
-        return teamService.save(team);
+        return teamRepository.create(team);
     }
 
     private Player addPlayerToDatabase(
@@ -94,11 +93,11 @@ public class InitDatabase {
                         .country(country)
                         .team(team)
                         .build();
-        return playerService.save(player);
+        return playerRepository.create(player);
     }
 
     private League addLeagueToDatabase(String name, Country country) {
         League league = League.builder().name(name).country(country).build();
-        return leagueService.save(league);
+        return leagueRepository.create(league);
     }
 }

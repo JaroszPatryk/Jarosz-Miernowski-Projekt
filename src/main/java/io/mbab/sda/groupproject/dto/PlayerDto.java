@@ -11,33 +11,34 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Value
-@Builder
-public class PlayerDto {
+@Builder(toBuilder = true)
+public class PlayerDto implements CrudDto<Integer> {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-  @Size(max = 32)
-  private String firstName;
+    @Size(max = 32)
+    private String firstName;
 
-  @Size(max = 64)
-  @NotBlank
+    @Size(max = 64)
+    @NotBlank
   private String lastName;
 
   @Size(max = 15)
   @NotBlank
   private String dateOfBirth;
 
-  @NotBlank private Country country;
+    @NotBlank
+    private CountryDto country;
 
-  private Team team;
+    private TeamDto team;
 
   public Player toEntity() {
     return Player.builder()
-        .team(this.team)
-        .id(this.id)
-        .country(this.country)
+            .team(this.team.toEntity())
+            .id(this.id)
+            .country(this.country.toEntity())
         .dateOfBirth(this.dateOfBirth)
         .firstName(this.firstName)
         .lastName(this.lastName)
@@ -46,9 +47,9 @@ public class PlayerDto {
 
   public static PlayerDto toDto(Player player) {
     return PlayerDto.builder()
-        .team(player.getTeam())
-        .id(player.getId())
-        .country(player.getCountry())
+            .team(TeamDto.toDto(player.getTeam()))
+            .id(player.getId())
+            .country(CountryDto.toDto(player.getCountry()))
         .dateOfBirth(player.getDateOfBirth())
         .firstName(player.getFirstName())
         .lastName(player.getLastName())

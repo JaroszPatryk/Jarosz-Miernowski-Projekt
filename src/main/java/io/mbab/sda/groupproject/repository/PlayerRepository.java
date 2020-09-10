@@ -2,13 +2,14 @@ package io.mbab.sda.groupproject.repository;
 
 
 import io.mbab.sda.groupproject.entity.Player;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Optional;
 
-
+@Repository
 public class PlayerRepository extends AbstractCrudRepository<Player, Integer> {
 
 

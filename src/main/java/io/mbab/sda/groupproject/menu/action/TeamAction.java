@@ -1,5 +1,8 @@
 package io.mbab.sda.groupproject.menu.action;
 
+import io.mbab.sda.groupproject.dto.CountryDto;
+import io.mbab.sda.groupproject.dto.LeagueDto;
+import io.mbab.sda.groupproject.dto.TeamDto;
 import io.mbab.sda.groupproject.entity.Country;
 import io.mbab.sda.groupproject.entity.League;
 import io.mbab.sda.groupproject.entity.Team;
@@ -15,45 +18,45 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TeamAction {
 
-  private final MenuActionContext ctx;
-  private final TeamService teamService;
-  private final CountryService countryService;
-  private final LeagueService leagueService;
+    private final MenuActionContext ctx;
+    private final TeamService teamService;
+    private final CountryService countryService;
+    private final LeagueService leagueService;
 
-  public void saveLeague(League league) {
-    leagueService.save(league);
-  }
+    public void saveLeague(LeagueDto dto) {
+        leagueService.save(dto);
+    }
 
-  public void saveTeam(Team team) {
-    teamService.save(team);
-  }
+    public void saveTeam(TeamDto dto) {
+        teamService.save(dto);
+    }
 
-  public Team getTeam(String name, String cityName, Country country, League league, String value) {
-    return Team.builder()
-            .name(name)
-            .country(country)
-            .city(cityName)
-            .value(value)
-            .league(league)
-            .build();
-  }
+    public TeamDto getTeam(String name, String cityName, CountryDto country, LeagueDto league, String value) {
+        return TeamDto.builder()
+                .name(name)
+                .country(country)
+                .city(cityName)
+                .value(value)
+                .league(league)
+                .build();
+    }
 
-  public League getLeague(String leagueName) {
-    return teamService.getLeagueByName(leagueName).orElse(null);
-  }
+    public LeagueDto getLeague(String leagueName) {
+        return teamService.getLeagueByName(leagueName).orElse(null);
+    }
 
-  public void saveCountry(Country country) {
-    countryService.save(country);
-  }
+    public void saveCountry(CountryDto dto) {
+        countryService.save(dto);
+    }
 
-  public Country getCountry(String countryName) {
-    return teamService
-        .getCountryByName(countryName)
-        .orElseGet(() -> Country.builder().name(countryName).build());
-  }
+    public CountryDto getCountry(String countryName) {
+        return teamService
+                .getCountryByName(countryName)
+                .orElseGet(() -> CountryDto.builder().name(countryName).build());
+    }
 
-  public boolean pressedZero(String input) {
-    if (input.equals("0")) {
+    public boolean pressedZero(String input) {
+        if (input.equals("0")) {
       ctx.use(MainAction.class).execute();
       return true;
     }

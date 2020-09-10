@@ -3,13 +3,12 @@ package io.mbab.sda.groupproject.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Builder(toBuilder = true)
+@ToString(exclude = {"team"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Player implements CrudEntites {

@@ -18,6 +18,9 @@ public class MainAction implements MenuAction {
     System.out.println("4) Wyswietl zawodnika");
     System.out.println("5) Wyswietl druzyne");
     System.out.println("6) Wyswietl lige");
+    //    System.out.println("7) Wyswietl liste zawodników");
+    //    System.out.println("8) Wyswietl lige");
+    //    System.out.println("9) Wyswietl lige");
 
     var input = scanner.nextLine();
 
@@ -46,15 +49,15 @@ public class MainAction implements MenuAction {
       return;
     }
 
-    //    if (input.equals("5")) {
-    //      ctx.use(ViewTeamAction.class).execute();
-    //      return;
-    //    }
-    //
-    //    if (input.equals("6")) {
-    //      ctx.use(ViewLeagueAction.class).execute();
-    //      return;
-    //    }
+    if (input.equals("5")) {
+      ctx.use(ViewTeam.class).execute();
+      return;
+    }
+
+    if (input.equals("6")) {
+      ctx.use(ViewLeague.class).execute();
+      return;
+    }
 
     System.out.println("Wprowadzono nieprawidłowa wartość!");
     execute();

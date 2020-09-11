@@ -69,7 +69,8 @@ public class LeagueService implements CrudService<LeagueDto, Integer> {
         if (league.getId() == null) {
             league = leagueRepository.create(league);
         }
-        return crudMapper.entityToDto(league);
+        dto = crudMapper.entityToDto(league);
+        return dto;
     }
 
     @Override

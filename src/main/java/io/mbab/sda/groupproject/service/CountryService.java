@@ -26,8 +26,8 @@ public class CountryService implements CrudService<CountryDto, Integer> {
     if (country.getId() == null) {
       country = countryRepository.create(country);
     }
-
-    return crudMapper.entityToDto(country);
+    countryDto = crudMapper.entityToDto(country);
+    return countryDto;
 
   }
 

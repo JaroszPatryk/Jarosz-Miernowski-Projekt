@@ -71,18 +71,18 @@ public class PlayerAction {
         if (team == null) {
             return false;
         }
-        teamService.save(team);
-        builder.team(team).build();
-      return true;
+        team = teamService.save(team);
+        builder = builder.team(team);
+        return true;
 
-      //      teamRepository
-      //          .findByName(teamName)
-      //          .ifPresentOrElse(
-      //              team -> builder.team(team).build(),
-      //              () -> {
-      //                System.out.println("Nie znaleziono drużyny o podanej nazwie!");
-      //                System.out.println("Wciśnij '0' jak chcesz wyjść do głownego menu.");
-      //
+        //      teamRepository
+        //          .findByName(teamName)
+        //          .ifPresentOrElse(
+        //              team -> builder.team(team).build(),
+        //              () -> {
+        //                System.out.println("Nie znaleziono drużyny o podanej nazwie!");
+        //                System.out.println("Wciśnij '0' jak chcesz wyjść do głownego menu.");
+        //
       //                addTeam(builder);
       //              });
   }

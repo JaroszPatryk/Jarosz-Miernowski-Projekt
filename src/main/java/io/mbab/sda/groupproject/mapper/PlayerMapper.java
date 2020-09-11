@@ -6,13 +6,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PlayerMapper implements CrudMapper<Player, PlayerDto> {
-    @Override
-    public Player dtoToEntity(PlayerDto playerDto) {
-        return playerDto.toEntity();
-    }
+  @Override
+  public Player dtoToEntity(PlayerDto playerDto) {
+    if (playerDto == null) return null;
+    return playerDto.toEntity();
+  }
 
-    @Override
-    public PlayerDto entityToDto(Player player) {
-        return PlayerDto.toDto(player);
-    }
+  @Override
+  public PlayerDto entityToDto(Player player) {
+    if (player == null) return null;
+
+    return PlayerDto.toDto(player);
+  }
 }

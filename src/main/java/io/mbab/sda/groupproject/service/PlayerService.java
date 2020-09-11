@@ -24,49 +24,53 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PlayerService implements CrudService<PlayerDto, Integer> {
 
-    private final PlayerRepository playerRepository;
-    protected final CrudMapper<Player, PlayerDto> crudMapper;
+  private final PlayerRepository playerRepository;
+  protected final CrudMapper<Player, PlayerDto> crudMapper;
 
-    public PlayerDto save(PlayerDto dto) {
-        Player player = crudMapper.dtoToEntity(dto);
+  public PlayerDto save(PlayerDto dto) {
 
-        if (player.getId() == null) {
-            player = playerRepository.create(player);
-        }
-        return crudMapper.entityToDto(player);
+    Player player = crudMapper.dtoToEntity(dto);
+
+    if (player.getId() == null) {
+      player = playerRepository.create(player);
     }
 
-    @Override
-    public List<PlayerDto> getAll() {
-        return playerRepository.getAll().stream()
-                .map(crudMapper::entityToDto)
-                .collect(Collectors.toUnmodifiableList());
-    }
+    dto = crudMapper.entityToDto(player);
 
-    @Override
-    public PlayerDto findById(Integer integer) {
+    return dto;
+  }
 
-        return crudMapper.entityToDto(playerRepository.findById(integer));
-    }
+  @Override
+  public List<PlayerDto> getAll() {
+    return playerRepository.getAll().stream()
+            .map(crudMapper::entityToDto)
+            .collect(Collectors.toUnmodifiableList());
+  }
 
-    @Override
-    public PlayerDto update(PlayerDto dto) {
-        Player player = crudMapper.dtoToEntity(dto);
-        playerRepository.update(player);
-        return crudMapper.entityToDto(player);
-    }
+  @Override
+  public PlayerDto findById(Integer integer) {
 
-    @Override
-    public void delete(Integer integer) {
-    }
+    return crudMapper.entityToDto(playerRepository.findById(integer));
+  }
 
-    @Override
-    public Optional<PlayerDto> findByIdOptional(Integer integer) {
-        return playerRepository.findByIdOptional(integer).map(PlayerDto::toDto);
-    }
+  @Override
+  public PlayerDto update(PlayerDto dto) {
+    Player player = crudMapper.dtoToEntity(dto);
+    playerRepository.update(player);
+    return crudMapper.entityToDto(player);
+  }
 
-    public Optional<PlayerDto> findByNameOptional(String name) {
+  @Override
+  public void delete(Integer integer) {
+  }
 
-        return playerRepository.findByNameOptional(name).map(crudMapper::entityToDto);
-    }
+  @Override
+  public Optional<PlayerDto> findByIdOptional(Integer integer) {
+    return playerRepository.findByIdOptional(integer).map(crudMapper::entityToDto);
+  }
+
+  public Optional<PlayerDto> findByNameOptional(String name) {
+
+    return playerRepository.findByNameOptional(name).map(crudMapper::entityToDto);
+  }
 }

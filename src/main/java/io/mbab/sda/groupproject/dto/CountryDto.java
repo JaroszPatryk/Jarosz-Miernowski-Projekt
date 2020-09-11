@@ -23,10 +23,11 @@ public class CountryDto implements CrudDto<Integer> {
     private String name;
 
     public Country toEntity() {
-    return Country.builder().id(this.id).name(this.name).build();
-  }
+        return Country.builder().id(this.id).name(this.name).build();
+    }
 
   public static CountryDto toDto(Country country) {
+      if (country == null) return null;
     return CountryDto.builder().id(country.getId()).name(country.getName()).build();
   }
 }

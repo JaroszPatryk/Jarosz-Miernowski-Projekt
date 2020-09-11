@@ -49,10 +49,11 @@ public class ViewPlayer implements MenuAction {
       }
         PlayerDto player = playerService.findByIdOptional(id).orElse(null);
       if (player == null) {
-        System.out.println("Nie znalezniono zawonika o id " + input);
+          System.out.println("Nie znalezniono zawonika o id " + stringID);
+      } else {
+          System.out.println("Twój wybrany zawonik:");
+          System.out.println(player);
       }
-      System.out.println("Twój wybrany zawonik:");
-      System.out.println(player);
     } else if (input.equals("2")) {
       showAllPlayers();
       System.out.println("Wybierz nazwisko:");

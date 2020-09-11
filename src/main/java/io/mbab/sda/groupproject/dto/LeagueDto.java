@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -35,17 +36,36 @@ public class LeagueDto implements CrudDto<Integer> {
     return League.builder()
             .country(this.country.toEntity())
             .name(this.name)
-            .teams(this.teams.stream().map(TeamDto::toEntity).collect(Collectors.toUnmodifiableList()))
+            .teams(this.toEntityList(this.teams))
         .id(this.id)
         .build();
   }
 
-  public static LeagueDto toDto(League league) {
-    return LeagueDto.builder()
-            .country(CountryDto.toDto(league.getCountry()))
-            .id(league.getId())
-            .teams(league.getTeams().stream().map(TeamDto::toDto).collect(Collectors.toUnmodifiableList()))
-        .name(league.getName())
-        .build();
-  }
+    public static LeagueDto toDto(League league) {
+        if (league == null) return null;
+
+        return LeagueDto.builder()
+                .country(CountryDto.toDto(league.getCountry()))
+                .id(league.getId())
+                .teams(LeagueDto.toDtoList(league.getTeams()))
+                .name(league.getName())
+                .build();
+    }
+
+
+    public List<Team> toEntityList(List<TeamDto> dtos) {
+        return Objects.isNull(dtos)
+                ? List.of()
+                : dtos.stream()
+                .map(TeamDto::toEntity)
+                .collect(Collectors.toUnmodifiableList());
+    }
+
+    public static List<TeamDto> toDtoList(List<Team> dtos) {
+        return Objects.isNull(dtos)
+                ? List.of()
+                : dtos.stream()
+                .map(TeamDto::toDto)
+                .collect(Collectors.toUnmodifiableList());
+    }
 }

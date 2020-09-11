@@ -32,16 +32,33 @@ public class PlayerRepository extends AbstractCrudRepository<Player, Integer> {
         }
     }
 
-  public Optional<Player> findByIdOptional(Integer integer) {
-      try {
-          CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-          var criteriaQuery = criteriaBuilder.createQuery(Player.class);
-          var root = criteriaQuery.from(Player.class);
-          return Optional.of(em.createQuery(
-                  criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), integer)))
-                  .getSingleResult());
-      } catch (NoResultException ex) {
-          return null;
-      }
-  }
+    public Optional<Player> findByIdOptional(Integer integer) {
+        try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            var criteriaQuery = criteriaBuilder.createQuery(Player.class);
+            var root = criteriaQuery.from(Player.class);
+            return Optional.of(em.createQuery(
+                    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), integer)))
+                    .getSingleResult());
+        } catch (NoResultException ex) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<Player> findByNameOptional(String name) {
+
+        try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            var criteriaQuery = criteriaBuilder.createQuery(Player.class);
+            var root = criteriaQuery.from(Player.class);
+
+            return Optional.of(
+                    em.createQuery(
+                            criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("lastName"),
+                                    name)))
+                            .getSingleResult());
+        } catch (NoResultException ex) {
+            return Optional.empty();
+        }
+    }
 }

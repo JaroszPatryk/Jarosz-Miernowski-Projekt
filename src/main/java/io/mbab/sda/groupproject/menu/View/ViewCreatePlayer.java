@@ -43,18 +43,18 @@ public class ViewCreatePlayer implements MenuAction {
     System.out.println("Podaj kraj pochodzenia gracza:");
     String countryName = cs.nextLine();
     playerAction.pressedZero(countryName);
-      CountryDto country = playerAction.getCountry(countryName);
-    countryService.save(country);
+    CountryDto country = playerAction.getCountry(countryName);
+    country = countryService.save(country);
 
-      PlayerDto player = null;
-      boolean isTeamFound = false;
-      PlayerDto.PlayerDtoBuilder playerBuilder =
-              playerAction.getPlayerBuilder(firstName, lastName, dateOfBirth, country);
+    PlayerDto player = null;
+    boolean isTeamFound = false;
+    PlayerDto.PlayerDtoBuilder playerBuilder =
+            playerAction.getPlayerBuilder(firstName, lastName, dateOfBirth, country);
     do {
       System.out.println("!!! DODAJESZ PIŁKARZA !!!");
       System.out.println("Podaj nazwę drużyny w której gracz występuję:");
       System.out.println("Pusty znak - piłkarz jest obecnie bez drużyny");
-      playerAction.getAll().forEach(System.out::println);
+      playerAction.getAll().forEach(teamDto -> System.out.println(teamDto.getName()));
       String teamName = cs.nextLine();
       playerAction.pressedZero(teamName);
       isTeamFound = playerAction.searchTeam(playerBuilder, teamName);

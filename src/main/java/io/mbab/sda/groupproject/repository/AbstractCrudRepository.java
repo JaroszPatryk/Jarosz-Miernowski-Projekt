@@ -81,7 +81,7 @@ public class AbstractCrudRepository<ENTITY, ID> implements CrudRepository<ENTITY
                     criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), integer)))
                     .getSingleResult());
         } catch (NoResultException ex) {
-            return null;
+            return Optional.empty();
         }
     }
 

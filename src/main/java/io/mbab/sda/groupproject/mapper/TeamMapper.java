@@ -8,11 +8,15 @@ import org.springframework.stereotype.Component;
 public class TeamMapper implements CrudMapper<Team, TeamDto> {
     @Override
     public Team dtoToEntity(TeamDto teamDto) {
+        if (teamDto == null) return null;
+
         return teamDto.toEntity();
     }
 
     @Override
     public TeamDto entityToDto(Team team) {
+        if (team == null) return null;
+
         return TeamDto.toDto(team);
     }
 }

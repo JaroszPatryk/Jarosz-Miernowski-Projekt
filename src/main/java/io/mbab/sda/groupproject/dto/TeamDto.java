@@ -42,26 +42,44 @@ public class TeamDto implements CrudDto<Integer> {
 
   public Team toEntity() {
 
-    return Team.builder()
-            .country(this.country.toEntity())
-            .league(this.league.toEntity())
+
+    Team team = Team.builder()
             .value(this.value)
             .city(this.city)
             .name(this.name)
             .id(this.id)
-            .players(this.toEntityList(this.players))
-        .build();
+            .build();
+
+    if (country != null) {
+      team = Team.builder()
+              .country(this.country.toEntity())
+              .build();
+    }
+
+    if (league != null) {
+      team = Team.builder()
+              .league(this.league.toEntity())
+              .build();
+    }
+
+    if (players != null) {
+      team = Team.builder()
+              .players(this.toEntityList(this.players))
+              .build();
+    }
+
+    return team;
   }
 
   public static TeamDto toDto(Team team) {
-      if (team == null) return null;
+    if (team == null) return null;
 
-      return TeamDto.builder()
-              .country(CountryDto.toDto(team.getCountry()))
-              .league(LeagueDto.toDto(team.getLeague()))
-              .value(team.getValue())
-              .city(team.getCity())
-              .name(team.getName())
+    return TeamDto.builder()
+            .country(CountryDto.toDto(team.getCountry()))
+            .league(LeagueDto.toDto(team.getLeague()))
+            .value(team.getValue())
+            .city(team.getCity())
+            .name(team.getName())
               .id(team.getId())
               .players(TeamDto.toDtoList(team.getPlayers()))
               .build();

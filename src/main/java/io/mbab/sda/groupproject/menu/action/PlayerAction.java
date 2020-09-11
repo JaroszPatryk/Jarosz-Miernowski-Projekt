@@ -3,12 +3,8 @@ package io.mbab.sda.groupproject.menu.action;
 import io.mbab.sda.groupproject.dto.CountryDto;
 import io.mbab.sda.groupproject.dto.PlayerDto;
 import io.mbab.sda.groupproject.dto.TeamDto;
-import io.mbab.sda.groupproject.entity.Country;
-import io.mbab.sda.groupproject.entity.Player.PlayerBuilder;
-import io.mbab.sda.groupproject.entity.Team;
 import io.mbab.sda.groupproject.menu.MainAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
-import io.mbab.sda.groupproject.repository.CountryRepository;
 import io.mbab.sda.groupproject.service.CountryService;
 import io.mbab.sda.groupproject.service.PlayerService;
 import io.mbab.sda.groupproject.service.TeamService;
@@ -25,8 +21,8 @@ public class PlayerAction {
     private final PlayerService playerService;
     private final TeamService teamService;
 
-    public void createPlayer(PlayerDto dto) {
-        playerService.save(dto);
+    public PlayerDto createPlayer(PlayerDto dto) {
+        return playerService.save(dto);
     }
 
     public PlayerDto.PlayerDtoBuilder getPlayerBuilder(
@@ -64,15 +60,21 @@ public class PlayerAction {
 
     public boolean searchTeam(PlayerDto.PlayerDtoBuilder builder, String teamName) {
         if (" ".equals(teamName) || "".equals(teamName)) {
+            System.out.println(builder);
             builder.team(null);
+            System.out.println(builder);
             return true;
         }
         TeamDto team = teamService.findByName(teamName);
+        System.out.println(team);
         if (team == null) {
             return false;
         }
+        System.out.println(team);
         team = teamService.save(team);
+        System.out.println(team);
         builder = builder.team(team);
+        System.out.println(team);
         return true;
 
         //      teamRepository

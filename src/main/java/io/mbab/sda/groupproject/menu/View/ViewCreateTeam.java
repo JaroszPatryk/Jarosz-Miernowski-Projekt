@@ -56,15 +56,16 @@ public class ViewCreateTeam implements MenuAction {
       System.out.println("Dodaj nową ligę albo wciśnij '0'.");
       league = viewCreateLeague.createLeague(leagueName);
     }
-    teamAction.saveLeague(league);
+
     System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");
     System.out.println("Podaj wartość drużyny");
     String value = cs.nextLine();
     teamAction.pressedZero(value);
     //    double value = 1000;
 
-      TeamDto team = teamAction.getTeam(teamName, cityName, country, league, value);
-    teamAction.saveTeam(team);
+    TeamDto team = teamAction.getTeam(teamName, cityName, country, league, value);
+    team = teamAction.saveTeam(team);
+    System.out.println(team);
 
     System.out.println("Dodałeś drużynę o danych: " + teamName);
     System.out.println(countryName);

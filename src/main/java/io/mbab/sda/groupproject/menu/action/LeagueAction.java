@@ -2,11 +2,7 @@ package io.mbab.sda.groupproject.menu.action;
 
 import io.mbab.sda.groupproject.dto.CountryDto;
 import io.mbab.sda.groupproject.dto.LeagueDto;
-import io.mbab.sda.groupproject.entity.Country;
-import io.mbab.sda.groupproject.entity.League;
-import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.MainAction;
-import io.mbab.sda.groupproject.menu.MenuAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.service.LeagueService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +17,13 @@ public class LeagueAction {
         return LeagueDto.builder().name(name).country(country).build();
     }
 
-    public void save(LeagueDto dto) {
-        leagueService.save(dto);
+    public LeagueDto findLeagueByName(String name) {
+        return leagueService.findByNameOptional(name).orElse(null);
+    }
+
+    public LeagueDto save(LeagueDto dto) {
+        System.out.println(dto);
+        return leagueService.save(dto);
     }
 
     public CountryDto getCountry(String countryName) {

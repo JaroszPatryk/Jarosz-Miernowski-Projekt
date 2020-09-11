@@ -13,6 +13,8 @@ import io.mbab.sda.groupproject.service.PlayerService;
 import io.mbab.sda.groupproject.service.TeamService;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public class InitDatabase {
 
@@ -45,14 +47,14 @@ public class InitDatabase {
         Team real = addTeamToDatabase("Real", "Madryt", "1b", spain, laLiga);
         Team athletico = addTeamToDatabase("Athletico", "Madryt", "300m", spain, laLiga);
         Team espanyol = addTeamToDatabase("Espanyol", "Barcelona", "100m", spain, laLiga);
-        Team manCity = addTeamToDatabase("Legia", "Warszawa", "10m", poland, ekstraklasa);
+        Team manCity = addTeamToDatabase("Manchester City", "Manchester", "750m", england, premierLeague);
         Team manU = addTeamToDatabase("Manchester United", "Manchester", "800m", england, premierLeague);
         Team liverpool = addTeamToDatabase("Liverpool FC", "Liverpool", "700m", england, premierLeague);
         Team bayern = addTeamToDatabase("Bayern", "Monachium", "800m", germany, bundesliga);
         Team borussia = addTeamToDatabase("Borussia", "Dortmund", "400m", germany, bundesliga);
         Team bayer = addTeamToDatabase("Bayer", "Leverkusen", "200m", germany, bundesliga);
         Team psg = addTeamToDatabase("PSG", "Paryż", "700m", france, ligue1);
-        Team lyon = addTeamToDatabase("Legia", "Warszawa", "10m", france, ligue1);
+        Team lyon = addTeamToDatabase("Lyon", "Lyon", "300m", france, ligue1);
         Team acMilan = addTeamToDatabase("Ac Milan", "Mediolan", "500m", null, seriaA);
         Team inter = addTeamToDatabase("Inter", "Mediolan", "45m", null, seriaA);
         Team juventus = addTeamToDatabase("Juventus", "Turyn", "600m", null, seriaA);
@@ -80,6 +82,15 @@ public class InitDatabase {
             String name, String city, String value, Country country, League league) {
         Team team =
                 Team.builder().name(name).city(city).value(value).country(country).league(league).build();
+        List<Team> allTeams = teamRepository.getAll();
+        for (Team t : allTeams) {
+            if (team.getName().equals(t.getName()) &&
+                    team.getValue().equals(t.getValue()) &&
+                    team.getLeague().equals(t.getLeague()) &&
+                    team.getCity().equals(t.getCity())) {
+                return team;
+            }
+        }
         return teamRepository.create(team);
     }
 

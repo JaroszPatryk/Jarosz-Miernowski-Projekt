@@ -62,10 +62,11 @@ public class ViewCreatePlayer implements MenuAction {
         System.out.println("Taka drużyna nie istnieje! Proszę podać raz jeszcze.");
       }
     } while (!isTeamFound);
-
+    System.out.println(player);
     player = playerBuilder.build();
-    playerAction.createPlayer(player);
-
+    System.out.println(player);
+    player = playerAction.createPlayer(player);
+    System.out.println(player);
     System.out.println("Dodałeś piłkarza o danych: \n" + firstName + " " + lastName);
     if (player.getTeam() == null) {
       System.out.println("Bez drużyny");

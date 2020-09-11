@@ -2,6 +2,7 @@ package io.mbab.sda.groupproject.service;
 
 import io.mbab.sda.groupproject.dto.CountryDto;
 import io.mbab.sda.groupproject.dto.LeagueDto;
+import io.mbab.sda.groupproject.dto.PlayerDto;
 import io.mbab.sda.groupproject.entity.Country;
 import io.mbab.sda.groupproject.entity.League;
 import io.mbab.sda.groupproject.mapper.CrudMapper;
@@ -63,13 +64,16 @@ public class LeagueService implements CrudService<LeagueDto, Integer> {
 
     @Override
     public LeagueDto save(LeagueDto dto) {
-
+        System.out.println(dto);
         League league = crudMapper.dtoToEntity(dto);
+        System.out.println(league);
 
         if (league.getId() == null) {
             league = leagueRepository.create(league);
+            System.out.println(league);
         }
         dto = crudMapper.entityToDto(league);
+        System.out.println(dto);
         return dto;
     }
 
@@ -88,5 +92,10 @@ public class LeagueService implements CrudService<LeagueDto, Integer> {
     @Override
     public Optional<LeagueDto> findByIdOptional(Integer integer) {
         return leagueRepository.findByIdOptional(integer).map(LeagueDto::toDto);
+    }
+
+    public Optional<LeagueDto> findByNameOptional(String name) {
+
+        return leagueRepository.findByNameOptional(name).map(crudMapper::entityToDto);
     }
 }

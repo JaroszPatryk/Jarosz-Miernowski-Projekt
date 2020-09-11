@@ -65,8 +65,11 @@ public class TeamService implements CrudService<TeamDto, Integer> {
 
         if (teamDto.getId() == null) {
             Team team = crudMapper.dtoToEntity(teamDto);
+      System.out.println(team);
             teamRepository.create(team);
+            System.out.println(team);
             teamDto = crudMapper.entityToDto(team);
+            System.out.println(teamDto);
         }
 
         return teamDto;

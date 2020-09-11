@@ -3,12 +3,7 @@ package io.mbab.sda.groupproject.menu.action;
 import io.mbab.sda.groupproject.dto.CountryDto;
 import io.mbab.sda.groupproject.dto.LeagueDto;
 import io.mbab.sda.groupproject.dto.TeamDto;
-import io.mbab.sda.groupproject.entity.Country;
-import io.mbab.sda.groupproject.entity.League;
-import io.mbab.sda.groupproject.entity.Team;
-import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.MainAction;
-import io.mbab.sda.groupproject.menu.MenuAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.service.CountryService;
 import io.mbab.sda.groupproject.service.LeagueService;
@@ -27,8 +22,8 @@ public class TeamAction {
         leagueService.save(dto);
     }
 
-    public void saveTeam(TeamDto dto) {
-        teamService.save(dto);
+    public TeamDto saveTeam(TeamDto dto) {
+        return teamService.save(dto);
     }
 
     public TeamDto getTeam(String name, String cityName, CountryDto country, LeagueDto league, String value) {

@@ -28,7 +28,12 @@ public class ViewCreateLeague implements MenuAction {
 
     String leagueName = cs.nextLine();
     leagueAction.pressedZero(leagueName);
-    createLeague(leagueName);
+    LeagueDto league = leagueAction.findLeagueByName(leagueName);
+    if (league == null) {
+      createLeague(leagueName);
+    } else {
+      System.out.println("Już istnieje taka liga! Proszę podać inną nazwę.");
+    }
 
     ctx.execute();
   }
@@ -41,15 +46,16 @@ public class ViewCreateLeague implements MenuAction {
     String countryName = cs.nextLine();
     leagueAction.pressedZero(countryName);
 
+
     CountryDto country = leagueAction.getCountry(countryName);
     countryService.save(country);
 
     LeagueDto league = leagueAction.getLeague(leagueName, country);
-
-    leagueAction.save(league);
+    league = leagueAction.save(league);
+    System.out.println(league);
 
     System.out.println(
-        "Dodano ligę o nazwie: " + leagueName + ", kraj pochodzenia: " + countryName);
+            "Dodano ligę o nazwie: " + leagueName + ", kraj pochodzenia: " + countryName);
     return league;
   }
 }

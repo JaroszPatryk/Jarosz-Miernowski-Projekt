@@ -28,15 +28,18 @@ public class PlayerService implements CrudService<PlayerDto, Integer> {
   protected final CrudMapper<Player, PlayerDto> crudMapper;
 
   public PlayerDto save(PlayerDto dto) {
+      System.out.println("save");
+      System.out.println(dto);
+      Player player = crudMapper.dtoToEntity(dto);
+      System.out.println("save" + player);
 
-    Player player = crudMapper.dtoToEntity(dto);
+      if (player.getId() == null) {
+          player = playerRepository.create(player);
+          System.out.println(player);
+      }
 
-    if (player.getId() == null) {
-      player = playerRepository.create(player);
-    }
-
-    dto = crudMapper.entityToDto(player);
-
+      dto = crudMapper.entityToDto(player);
+      System.out.println(dto);
     return dto;
   }
 

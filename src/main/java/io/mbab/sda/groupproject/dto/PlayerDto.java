@@ -39,14 +39,26 @@ public class PlayerDto implements CrudDto<Integer> {
     private TeamDto team;
 
   public Player toEntity() {
-    return Player.builder()
-            .team(this.team.toEntity())
-            .id(this.id)
-            .country(this.country.toEntity())
-        .dateOfBirth(this.dateOfBirth)
-        .firstName(this.firstName)
-        .lastName(this.lastName)
-        .build();
+      Player player = Player.builder()
+              .id(this.id)
+              .dateOfBirth(this.dateOfBirth)
+              .firstName(this.firstName)
+              .lastName(this.lastName)
+              .build();
+
+      if (country != null) {
+          player = Player.builder()
+                  .country(this.country.toEntity())
+                  .build();
+      }
+
+      if (team != null) {
+          player = Player.builder()
+                  .team(this.team.toEntity())
+                  .build();
+      }
+
+      return player;
   }
 
   public static PlayerDto toDto(Player player) {

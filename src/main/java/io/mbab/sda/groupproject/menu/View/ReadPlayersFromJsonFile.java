@@ -1,5 +1,6 @@
 package io.mbab.sda.groupproject.menu.View;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.mbab.sda.groupproject.entity.CrudEntites;
 import io.mbab.sda.groupproject.entity.Player;
 import io.mbab.sda.groupproject.mapper.JsonUtil;
@@ -18,12 +19,15 @@ public class ReadPlayersFromJsonFile implements MenuAction {
     @Override
     public void execute() {
 
+        ObjectMapper mapper = new ObjectMapper();
+
         System.out.println("!!! Wczytujesz z pliku Json !!!");
         System.out.println("Podaj ścieżke do pliku");
         String path = cs.nextLine();
 
+
         try {
-            JsonUtil.readFromJsonFile(path, Player.class);
+            JsonUtil.readFromJsonFile(path);
         } catch (IOException e) {
             e.printStackTrace();
         }

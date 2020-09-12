@@ -1,6 +1,7 @@
 package io.mbab.sda.groupproject.mapper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.mbab.sda.groupproject.entity.CrudEntites;
 import io.mbab.sda.groupproject.entity.Player;
@@ -8,6 +9,7 @@ import org.apache.catalina.User;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class JsonUtil {
 
@@ -25,10 +27,9 @@ public class JsonUtil {
     return mapper.writeValueAsString(o);
   }
 
-  public static void readFromJsonFile(String path, Class<Player> userClass) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
+  public static List<Player> readFromJsonFile(String path) throws IOException {
 
-    Object object = mapper.readValue(new File(path), userClass);
+    return mapper.readValue(new File(path), new TypeReference<>() {
+    });
   }
-
 }

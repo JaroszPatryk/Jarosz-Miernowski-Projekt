@@ -1,13 +1,17 @@
 package io.mbab.sda.groupproject.menu.View;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.mbab.sda.groupproject.dto.CountryDto;
 import io.mbab.sda.groupproject.dto.PlayerDto;
+import io.mbab.sda.groupproject.mapper.JsonUtil;
 import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.action.MenuAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.menu.action.PlayerAction;
 import io.mbab.sda.groupproject.service.CountryService;
 import lombok.RequiredArgsConstructor;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 public class CreatePlayerView implements MenuAction {
@@ -66,6 +70,8 @@ public class CreatePlayerView implements MenuAction {
     player = playerAction.createPlayer(player);
     System.out.println("player" + player);
     System.out.println(player);
+
+
     System.out.println("Dodałeś piłkarza o danych: \n" + firstName + " " + lastName);
     if (player.getTeam() == null) {
       System.out.println("Bez drużyny");
@@ -74,7 +80,17 @@ public class CreatePlayerView implements MenuAction {
     }
     System.out.println(dateOfBirth);
     System.out.println(countryName);
-
+    System.out.println("Czy chcesz zapisac piłkarzy do pliku Json? \n T - zapis \n inny klawisz powrót");
+    String user = cs.nextLine();
+    if(user.equals("T")){
+      System.out.println("Podaj scieżkę dostępu do pliku:");
+      String path = cs.nextLine();
+      try {
+        JsonUtil.writeToJsonFile(playerAction.getAll(), path);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
     ctx.execute();
   }
 }

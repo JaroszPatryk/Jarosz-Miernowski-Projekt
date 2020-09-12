@@ -39,7 +39,7 @@ public class PlayerAction {
 
     public CountryDto getCountry(String countryName) {
         return countryService
-                .findByNameOptional(countryName)
+                .findByName(countryName)
                 .orElseGet(() -> CountryDto.builder().name(countryName).build());
     }
 
@@ -50,12 +50,6 @@ public class PlayerAction {
         }
         return false;
     }
-
-    //  public void addTeam(PlayerBuilder builder) {
-    //    String teamName = scanner.nextLine();
-    //
-    //    searchTeam(builder, teamName);
-    //  }
 
     public boolean searchTeam(PlayerDto.PlayerDtoBuilder builder, String teamName) {
         if (" ".equals(teamName) || "".equals(teamName)) {
@@ -76,16 +70,7 @@ public class PlayerAction {
         System.out.println("builder" + builder);
         System.out.println(team);
         return true;
-
-        //      teamRepository
-        //          .findByName(teamName)
-        //          .ifPresentOrElse(
-        //              team -> builder.team(team).build(),
-        //              () -> {
-        //                System.out.println("Nie znaleziono drużyny o podanej nazwie!");
-        //                System.out.println("Wciśnij '0' jak chcesz wyjść do głownego menu.");
-        //
-      //                addTeam(builder);
-      //              });
   }
+
+
 }

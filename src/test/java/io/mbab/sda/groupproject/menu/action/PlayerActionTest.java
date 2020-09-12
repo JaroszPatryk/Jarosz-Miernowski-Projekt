@@ -1,24 +1,8 @@
 package io.mbab.sda.groupproject.menu.action;
 
-import io.mbab.sda.groupproject.entity.Country;
-import io.mbab.sda.groupproject.entity.Player;
-import io.mbab.sda.groupproject.entity.Team;
-import io.mbab.sda.groupproject.menu.CustomScanner;
-import io.mbab.sda.groupproject.menu.MainAction;
-import io.mbab.sda.groupproject.menu.MenuActionContext;
-import io.mbab.sda.groupproject.repository.CountryRepository;
-import io.mbab.sda.groupproject.repository.TeamRepository;
-import io.mbab.sda.groupproject.service.PlayerService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 //
 
-import java.util.Optional;
-
 import static org.hamcrest.MatcherAssert.assertThat;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class PlayerActionTest {
 

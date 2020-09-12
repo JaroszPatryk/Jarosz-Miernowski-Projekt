@@ -1,24 +1,22 @@
 package io.mbab.sda.groupproject.menu.View;
 
 import io.mbab.sda.groupproject.dto.PlayerDto;
-import io.mbab.sda.groupproject.entity.Player;
 import io.mbab.sda.groupproject.menu.CustomScanner;
-import io.mbab.sda.groupproject.menu.MenuAction;
+import io.mbab.sda.groupproject.menu.action.MenuAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.menu.action.PlayerAction;
-import io.mbab.sda.groupproject.repository.PlayerRepository;
 import io.mbab.sda.groupproject.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-public class ViewPlayer implements MenuAction {
+public class FindPlayerView implements MenuAction {
 
   private final PlayerAction playerAction;
   private final CustomScanner cs;
-    private final MenuActionContext ctx;
-    private final PlayerService playerService;
+  private final MenuActionContext ctx;
+  private final PlayerService playerService;
 
   @Override
   public void execute() {

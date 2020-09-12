@@ -4,13 +4,9 @@ import io.mbab.sda.groupproject.config.Configuration;
 import io.mbab.sda.groupproject.config.JpaUtil;
 import io.mbab.sda.groupproject.menu.CustomScanner;
 import io.mbab.sda.groupproject.menu.InitDatabase;
-import io.mbab.sda.groupproject.menu.MainAction;
+import io.mbab.sda.groupproject.menu.action.MainAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.repository.*;
-import io.mbab.sda.groupproject.service.CountryService;
-import io.mbab.sda.groupproject.service.LeagueService;
-import io.mbab.sda.groupproject.service.PlayerService;
-import io.mbab.sda.groupproject.service.TeamService;
 
 public class Application {
 

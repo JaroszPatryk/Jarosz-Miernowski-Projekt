@@ -33,24 +33,21 @@ public class LeagueDto implements CrudDto<Integer> {
     private List<TeamDto> teams;
 
   public League toEntity() {
-      League league = League.builder()
+      League.LeagueBuilder builder= League.builder()
               .name(this.name)
-              .id(this.id)
-              .build();
+              .id(this.id);
 
       if (country != null) {
-          league = League.builder()
-                  .country(this.country.toEntity())
-                  .build();
+          builder.country(this.country.toEntity())
+                  ;
       }
 
       if (teams != null) {
-          league = League.builder()
-                  .teams(this.toEntityList(teams))
-                  .build();
+          builder.teams(this.toEntityList(teams))
+                  ;
       }
 
-      return league;
+      return builder.build();
   }
 
     public static LeagueDto toDto(League league) {

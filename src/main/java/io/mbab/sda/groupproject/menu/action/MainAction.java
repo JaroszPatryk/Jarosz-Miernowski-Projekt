@@ -20,7 +20,7 @@ public class MainAction implements MenuAction {
     System.out.println("4) Wyswietl zawodnika");
     System.out.println("5) Wyswietl druzyne");
     System.out.println("6) Wyswietl lige");
-    System.out.println("7) Wczytaj jsona");
+    System.out.println("7) Zapisz jsona");
     var input = scanner.nextLine();
     strategy
             .prepareCtx(input, ctx)

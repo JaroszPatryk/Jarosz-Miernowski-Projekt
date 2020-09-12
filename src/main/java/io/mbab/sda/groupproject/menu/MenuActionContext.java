@@ -1,5 +1,6 @@
 package io.mbab.sda.groupproject.menu;
 
+import io.mbab.sda.groupproject.entity.Player;
 import io.mbab.sda.groupproject.mapper.CountryMapper;
 import io.mbab.sda.groupproject.mapper.LeagueMapper;
 import io.mbab.sda.groupproject.mapper.PlayerMapper;
@@ -37,6 +38,15 @@ public class MenuActionContext {
 
   private void initHolder(CustomScanner scanner, CrudRepositoryFactory repositoryFactory) {
     holder.put(MainAction.class, new MainAction(scanner, this, new MainActionStrategy()));
+
+    holder.put(
+            CreateJsonFile.class,
+            new CreateJsonFile(
+                    scanner,
+                    repositoryFactory.get(PlayerRepository.class),
+                    new PlayerService(repositoryFactory.get(PlayerRepository.class), new PlayerMapper())
+                    ));
+
     holder.put(
             CreateLeagueView.class,
             new CreateLeagueView(

@@ -31,7 +31,7 @@ public class CountryService implements CrudService<CountryDto, Integer> {
 
   }
 
-  public Optional<CountryDto> findByNameOptional(String name) {
+  public Optional<CountryDto> findByName(String name) {
 
     return countryRepository.findByNameOptional(name).map(crudMapper::entityToDto);
   }

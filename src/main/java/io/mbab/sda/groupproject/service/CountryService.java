@@ -44,11 +44,6 @@ public class CountryService implements CrudService<CountryDto, Integer> {
   }
 
   @Override
-  public CountryDto findById(Integer integer) {
-    return crudMapper.entityToDto(countryRepository.findById(integer));
-  }
-
-  @Override
   public CountryDto update(CountryDto dto) {
     Country country = crudMapper.dtoToEntity(dto);
     countryRepository.update(country);

@@ -93,11 +93,6 @@ public class TeamService implements CrudService<TeamDto, Integer> {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    @Override
-    public TeamDto findById(Integer integer) {
-
-        return crudMapper.entityToDto(teamRepository.findById(integer));
-    }
 
     @Override
     public TeamDto update(TeamDto dto) {

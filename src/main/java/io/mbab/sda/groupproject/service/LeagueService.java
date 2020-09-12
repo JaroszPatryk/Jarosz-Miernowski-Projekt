@@ -58,11 +58,6 @@ public class LeagueService implements CrudService<LeagueDto, Integer> {
     }
 
     @Override
-    public LeagueDto findById(Integer integer) {
-        return crudMapper.entityToDto(leagueRepository.findById(integer));
-    }
-
-    @Override
     public LeagueDto save(LeagueDto dto) {
         System.out.println(dto);
         League league = crudMapper.dtoToEntity(dto);

@@ -7,8 +7,6 @@ public interface CrudService<DTO, ID> {
 
     List<DTO> getAll();
 
-    DTO findById(ID id);
-
     DTO save(DTO entity);
 
     DTO update(DTO entity);

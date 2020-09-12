@@ -42,33 +42,22 @@ public class TeamDto implements CrudDto<Integer> {
 
   public Team toEntity() {
 
-
-    Team team = Team.builder()
-            .value(this.value)
-            .city(this.city)
-            .name(this.name)
-            .id(this.id)
-            .build();
+    Team.TeamBuilder builder =
+            Team.builder().value(this.value).city(this.city).name(this.name).id(this.id);
 
     if (country != null) {
-      team = Team.builder()
-              .country(this.country.toEntity())
-              .build();
+      builder.country(this.country.toEntity());
     }
 
     if (league != null) {
-      team = Team.builder()
-              .league(this.league.toEntity())
-              .build();
+      builder.league(this.league.toEntity());
     }
 
     if (players != null) {
-      team = Team.builder()
-              .players(this.toEntityList(this.players))
-              .build();
+      builder.players(this.toEntityList(this.players));
     }
 
-    return team;
+    return builder.build();
   }
 
   public static TeamDto toDto(Team team) {
@@ -80,25 +69,20 @@ public class TeamDto implements CrudDto<Integer> {
             .value(team.getValue())
             .city(team.getCity())
             .name(team.getName())
-              .id(team.getId())
-              .players(TeamDto.toDtoList(team.getPlayers()))
-              .build();
+            .id(team.getId())
+            .players(TeamDto.toDtoList(team.getPlayers()))
+            .build();
   }
 
+  public List<Player> toEntityList(List<PlayerDto> dtos) {
+    return Objects.isNull(dtos)
+            ? List.of()
+            : dtos.stream().map(PlayerDto::toEntity).collect(Collectors.toUnmodifiableList());
+  }
 
-    public List<Player> toEntityList(List<PlayerDto> dtos) {
-        return Objects.isNull(dtos)
-                ? List.of()
-                : dtos.stream()
-                .map(PlayerDto::toEntity)
-                .collect(Collectors.toUnmodifiableList());
-    }
-
-    public static List<PlayerDto> toDtoList(List<Player> dtos) {
-        return Objects.isNull(dtos)
-                ? List.of()
-                : dtos.stream()
-                .map(PlayerDto::toDto)
-                .collect(Collectors.toUnmodifiableList());
-    }
+  public static List<PlayerDto> toDtoList(List<Player> dtos) {
+    return Objects.isNull(dtos)
+            ? List.of()
+            : dtos.stream().map(PlayerDto::toDto).collect(Collectors.toUnmodifiableList());
+  }
 }

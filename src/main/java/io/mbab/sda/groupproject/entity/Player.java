@@ -52,19 +52,19 @@ public class Player implements CrudEntites {
         return "Player{"
         + "id="
         + id
-        + ", firstName='"
-        + firstName
-        + '\''
-        + ", lastName='"
-        + lastName
-        + '\''
-        + ", dateOfBirth='"
-        + dateOfBirth
-        + '\''
-        + ", country="
-        + country.getName()
-        + ", team="
-        + teamName
-        + '}';
+                + ", firstName='"
+                + firstName
+                + '\''
+                + ", lastName='"
+                + lastName
+                + '\''
+                + ", dateOfBirth='"
+                + dateOfBirth
+                + '\''
+                + ", country="
+                + country
+                + ", team="
+                + teamName
+                + '}';
   }
 }

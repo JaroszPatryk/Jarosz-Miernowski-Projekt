@@ -74,6 +74,7 @@ public class PlayerAction {
         team = teamService.save(team);
         System.out.println(team);
         builder = builder.team(team);
+        System.out.println("builder" + builder);
         System.out.println(team);
         return true;
 

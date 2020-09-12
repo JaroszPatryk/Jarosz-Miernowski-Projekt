@@ -66,6 +66,7 @@ public class ViewCreatePlayer implements MenuAction {
     player = playerBuilder.build();
     System.out.println(player);
     player = playerAction.createPlayer(player);
+    System.out.println("player" + player);
     System.out.println(player);
     System.out.println("Dodałeś piłkarza o danych: \n" + firstName + " " + lastName);
     if (player.getTeam() == null) {

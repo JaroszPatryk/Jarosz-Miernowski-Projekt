@@ -2,25 +2,52 @@ package io.mbab.sda.groupproject.menu.action;
 
 //
 
+import io.mbab.sda.groupproject.dto.CountryDto;
+import io.mbab.sda.groupproject.entity.Country;
+import io.mbab.sda.groupproject.mapper.CountryMapper;
+import io.mbab.sda.groupproject.mapper.PlayerMapper;
+import io.mbab.sda.groupproject.menu.MenuActionContext;
+import io.mbab.sda.groupproject.repository.CountryRepository;
+import io.mbab.sda.groupproject.repository.TeamRepository;
+import io.mbab.sda.groupproject.service.CountryService;
+import io.mbab.sda.groupproject.service.PlayerService;
+import io.mbab.sda.groupproject.service.TeamService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import javax.persistence.OneToMany;
+import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 class PlayerActionTest {
 
-//    private MenuActionContext menuActionContext;
-//    private CountryRepository countryRepository;
-//    private PlayerService playerService;
-//    private TeamRepository teamRepository;
-//    private PlayerAction playerAction;
-//
-//    @BeforeEach
-//    void initialization() {
-//        menuActionContext = mock(MenuActionContext.class);
-//        countryRepository = mock(CountryRepository.class);
-//        playerService = mock(PlayerService.class);
-//        teamRepository = mock(TeamRepository.class);
-//        playerAction = new PlayerAction(menuActionContext, countryRepository,playerService,teamRepository);
-//    }
-//
+    private MenuActionContext menuActionContext;
+    private CountryRepository countryRepository;
+    private PlayerService playerService;
+    private TeamRepository teamRepository;
+    private PlayerAction playerAction;
+    private TeamService teamService;
+    private CountryService countryService;
+    private CountryMapper countryMapper;
+    private PlayerMapper playerMapper;
+
+    @BeforeEach
+    void initialization() {
+        menuActionContext = mock(MenuActionContext.class);
+        countryRepository = mock(CountryRepository.class);
+        playerService = mock(PlayerService.class);
+        teamRepository = mock(TeamRepository.class);
+        teamService = mock(TeamService.class);
+        countryService = mock(CountryService.class);
+        playerAction = new PlayerAction(menuActionContext, countryService, playerService, teamService);
+        countryMapper = new CountryMapper();
+        playerMapper = new PlayerMapper();
+    }
+
+    //
 //    @Test
 //    void shouldCreatePlayer(){
 //        //given
@@ -68,20 +95,22 @@ class PlayerActionTest {
 //
 //    }
 //
-//    @Test
-//    void shouldReturnCountryWhenCountryIsInDatabase(){
-//        //given
-//        Country newCountry = new Country(1,"Polska");
-//        String countryName = "Polska";
-//        when(countryRepository.findByNameOptional(countryName)).thenReturn(Optional.of(newCountry));
-//        //when
-//        Country country = playerAction.getCountry(countryName);
-//        //then
-//        verify(countryRepository,times(1)).findByName(countryName);
-//        assertEquals(country.getName(), countryName);
-//        assertEquals(country.getId(), 1);
-//
-//    }
+    @Test
+    void shouldReturnCountryWhenCountryIsInDatabase() {
+        //given
+        Country newCountry = new Country(1, "Polska");
+        CountryDto countryDto = countryMapper.entityToDto(newCountry);
+        String countryName = "Polska";
+
+        when(countryService.findByNameOptional(countryName)).thenReturn(Optional.of(countryDto));
+        //when
+        CountryDto country = playerAction.getCountry(countryName);
+        //then
+        verify(countryService, times(1)).findByNameOptional(countryName);
+        assertEquals(country.getName(), countryName);
+        assertEquals(country.getId(), 1);
+
+    }
 //
 //    @Test
 //    void shouldGoToMenuWhenPressZero() {

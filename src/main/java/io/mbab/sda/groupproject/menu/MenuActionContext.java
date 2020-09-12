@@ -167,11 +167,16 @@ public class MenuActionContext {
                                     repositoryFactory.get(CountryRepository.class),
                                     repositoryFactory.get(LeagueRepository.class),
                                     repositoryFactory.get(TeamRepository.class),
-                    new TeamMapper(),
-                    new CountryMapper(),
-                    new LeagueMapper())),
-            scanner,
-            this,
-            new PlayerService(repositoryFactory.get(PlayerRepository.class), new PlayerMapper())));
+                                    new TeamMapper(),
+                                    new CountryMapper(),
+                                    new LeagueMapper())),
+                    scanner,
+                    this,
+                    new PlayerService(repositoryFactory.get(PlayerRepository.class), new PlayerMapper())));
+
+    holder.put(ReadPlayersFromJsonFile.class, new ReadPlayersFromJsonFile());
+
   }
+
+
 }

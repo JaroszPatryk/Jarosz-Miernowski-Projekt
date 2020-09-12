@@ -23,14 +23,16 @@ public class MainActionStrategy {
 
   private Map<String, Class<? extends MenuAction>> initStrategyMap() {
     return Map.ofEntries(
-        Map.entry("0", ExitAction.class),
-        Map.entry("1", CreatePlayerView.class),
-        Map.entry("2", CreateTeamView.class),
-        Map.entry("3", CreateLeagueView.class),
-        Map.entry("4", FindPlayerView.class),
-        Map.entry("5", FindTeamView.class),
-        Map.entry("6", FindLeagueView.class),
-        Map.entry("7", CreateJsonFile.class)
-        );
+            Map.entry("0", ExitAction.class),
+            Map.entry("1", CreatePlayerView.class),
+            Map.entry("2", CreateTeamView.class),
+            Map.entry("3", CreateLeagueView.class),
+            Map.entry("4", FindPlayerView.class),
+            Map.entry("5", FindTeamView.class),
+            Map.entry("6", FindLeagueView.class),
+            Map.entry("7", CreateJsonFile.class),
+            Map.entry("8", ReadPlayersFromJsonFile.class)
+
+    );
   }
 }

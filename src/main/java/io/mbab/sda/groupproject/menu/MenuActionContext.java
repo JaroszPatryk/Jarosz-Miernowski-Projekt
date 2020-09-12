@@ -18,6 +18,7 @@ import java.util.Map;
 public class MenuActionContext {
 
   private MenuAction action;
+//  private MainActionStrategy strategy;
   private Map<Class<? extends MenuAction>, MenuAction> holder = new HashMap<>();
 
   public MenuActionContext(CustomScanner scanner, CrudRepositoryFactory repositoryFactory) {
@@ -35,7 +36,7 @@ public class MenuActionContext {
   }
 
   private void initHolder(CustomScanner scanner, CrudRepositoryFactory repositoryFactory) {
-    holder.put(MainAction.class, new MainAction(scanner, this));
+    holder.put(MainAction.class, new MainAction(scanner, this, new MainActionStrategy()));
     holder.put(
             CreateLeagueView.class,
             new CreateLeagueView(

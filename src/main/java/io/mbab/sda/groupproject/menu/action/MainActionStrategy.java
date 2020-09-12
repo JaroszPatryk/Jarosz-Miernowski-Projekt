@@ -29,6 +29,7 @@ public class MainActionStrategy {
         Map.entry("3", CreateLeagueView.class),
         Map.entry("4", FindPlayerView.class),
         Map.entry("5", FindTeamView.class),
-        Map.entry("6", FindLeagueView.class));
+        Map.entry("6", FindLeagueView.class)
+        );
   }
 }

@@ -1,10 +1,6 @@
-package io.mbab.sda.groupproject.menu.action;
+package io.mbab.sda.groupproject.menu;
 
-import io.mbab.sda.groupproject.menu.CustomScanner;
-import io.mbab.sda.groupproject.menu.MenuActionContext;
-import io.mbab.sda.groupproject.menu.View.ViewLeagueAction;
-import io.mbab.sda.groupproject.menu.View.ViewPlayerAction;
-import io.mbab.sda.groupproject.menu.View.ViewTeamAction;
+import io.mbab.sda.groupproject.menu.View.*;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -31,35 +27,34 @@ public class MainAction implements MenuAction {
     }
 
     if (input.equals("1")) {
-      ctx.use(CreatePlayerAction.class).execute();
+      ctx.use(ViewCreatePlayer.class).execute();
       return;
     }
 
     if (input.equals("2")) {
-      ctx.use(CreateTeamAction.class).execute();
+      ctx.use(ViewCreateTeam.class).execute();
       return;
     }
 
     if (input.equals("3")) {
-      ctx.use(CreateLeagueAction.class).execute();
+      ctx.use(ViewCreateLeague.class).execute();
       return;
     }
 
     if (input.equals("4")) {
-      ctx.use(ViewPlayerAction.class).execute();
+      ctx.use(ViewPlayer.class).execute();
       return;
     }
 
-    if (input.equals("5")) {
-      ctx.use(ViewTeamAction.class).execute();
-      return;
-    }
-
-    if (input.equals("6")) {
-      ctx.use(ViewLeagueAction.class).execute();
-      return;
-    }
-
+    //    if (input.equals("5")) {
+    //      ctx.use(ViewTeamAction.class).execute();
+    //      return;
+    //    }
+    //
+    //    if (input.equals("6")) {
+    //      ctx.use(ViewLeagueAction.class).execute();
+    //      return;
+    //    }
 
     System.out.println("Wprowadzono nieprawidłowa wartość!");
     execute();

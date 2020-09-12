@@ -9,26 +9,34 @@ import java.util.UUID;
 @Entity
 @Getter
 @Builder(toBuilder = true)
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"uuid"})
-public class League {
+public class League implements CrudEntites {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-  @Column(length = 128, nullable = false)
-  private String name;
+    @Column(length = 128, nullable = false)
+    private String name;
 
+    @ManyToOne
+    private Country country;
 
+    @OneToMany(mappedBy = "league", cascade = CascadeType.ALL)
+    private List<Team> teams;
 
-  @ManyToOne
-  private Country country;
+    @Transient
+    private UUID uuid = UUID.randomUUID();
 
-  @OneToMany(mappedBy = "league", cascade = CascadeType.ALL)
-  private List<Team> teams;
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
 
-  @Transient private UUID uuid = UUID.randomUUID();
+    @Override
+    public String toString() {
+        return "League{" + "name='" + name + '\'' + ", country=" + country.getName() + '}';
+    }
 }

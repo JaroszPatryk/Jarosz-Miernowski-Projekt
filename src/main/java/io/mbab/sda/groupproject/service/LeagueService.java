@@ -1,40 +1,101 @@
 package io.mbab.sda.groupproject.service;
 
+import io.mbab.sda.groupproject.dto.CountryDto;
+import io.mbab.sda.groupproject.dto.LeagueDto;
+import io.mbab.sda.groupproject.dto.PlayerDto;
 import io.mbab.sda.groupproject.entity.Country;
 import io.mbab.sda.groupproject.entity.League;
-import io.mbab.sda.groupproject.menu.MenuActionContext;
+import io.mbab.sda.groupproject.mapper.CrudMapper;
 import io.mbab.sda.groupproject.repository.CountryRepository;
+import io.mbab.sda.groupproject.repository.CrudRepository;
 import io.mbab.sda.groupproject.repository.LeagueRepository;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-@Getter
-@RequiredArgsConstructor
-public class LeagueService {
+@Service
+@AllArgsConstructor
+public class LeagueService implements CrudService<LeagueDto, Integer> {
 
-  private final CountryRepository countryRepository;
-  private final LeagueRepository leagueRepository;
-  private final EntityManager em;
+    private final CountryRepository countryRepository;
+    private final LeagueRepository leagueRepository;
+    protected final CrudMapper<League, LeagueDto> crudMapper;
+    protected final CrudMapper<Country, CountryDto> crudMapperCountry;
 
-  public League saveLeague(Country country, League league) {
-    League newLeague = null;
-    try {
-      em.getTransaction().begin();
-      countryRepository.create(country);
-      var leagueWithCountry = league.toBuilder().country(country).build();
-      newLeague = leagueRepository.create(leagueWithCountry);
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
+    //  public League save(Country country, League league) {
+    //    League newLeague = null;
+    //    try {
+    //      em.getTransaction().begin();
+    //      countryRepository.create(country);
+    //      var leagueWithCountry = league.toBuilder().country(country).build();
+    //      newLeague = leagueRepository.create(leagueWithCountry);
+    //      em.getTransaction().commit();
+    //    } catch (Exception ex) {
+    //    em.getTransaction().rollback();
+    //  }
+    //
+    //    if(country.getId()==null){
+    //      countryRepository.create(country);
+    //    }
+    //
+    //    return newLeague;
+    //  }
+
+    public Optional<CountryDto> getCountryByName(String name) {
+
+        return countryRepository.findByNameOptional(name).map(crudMapperCountry::entityToDto);
     }
-    return newLeague;
-  }
 
-  public Optional<Country> getCountryByName(String name){
-    return countryRepository.findByName(name);
-  }
+    @Override
+    public List<LeagueDto> getAll() {
+        return leagueRepository.getAll().stream()
+                .map(crudMapper::entityToDto)
+                .collect(Collectors.toUnmodifiableList());
+    }
+
+    @Override
+    public LeagueDto findById(Integer integer) {
+        return crudMapper.entityToDto(leagueRepository.findById(integer));
+    }
+
+    @Override
+    public LeagueDto save(LeagueDto dto) {
+        System.out.println(dto);
+        League league = crudMapper.dtoToEntity(dto);
+        System.out.println(league);
+
+        if (league.getId() == null) {
+            league = leagueRepository.create(league);
+            System.out.println(league);
+        }
+        dto = crudMapper.entityToDto(league);
+        System.out.println(dto);
+        return dto;
+    }
+
+    @Override
+    public LeagueDto update(LeagueDto dto) {
+        League league = crudMapper.dtoToEntity(dto);
+        leagueRepository.update(league);
+        return crudMapper.entityToDto(league);
+    }
+
+    @Override
+    public void delete(Integer integer) {
+        leagueRepository.delete(integer);
+    }
+
+    @Override
+    public Optional<LeagueDto> findByIdOptional(Integer integer) {
+        return leagueRepository.findByIdOptional(integer).map(LeagueDto::toDto);
+    }
+
+    public Optional<LeagueDto> findByNameOptional(String name) {
+
+        return leagueRepository.findByNameOptional(name).map(crudMapper::entityToDto);
+    }
 }

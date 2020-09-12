@@ -1,39 +1,64 @@
 package io.mbab.sda.groupproject.repository;
 
+
 import io.mbab.sda.groupproject.entity.Player;
-import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.List;
+import javax.persistence.NoResultException;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.Optional;
 
-@RequiredArgsConstructor
-public class PlayerRepository implements CrudRepository<Player, Integer> {
+@Repository
+public class PlayerRepository extends AbstractCrudRepository<Player, Integer> {
 
-  private final EntityManager em;
 
-  @Override
-  public List<Player> getAll() {
-    return null;
-  }
+    public PlayerRepository(EntityManager em) {
+        super(em, Player.class);
+    }
 
-  @Override
-  public Player findById(Integer integer) {
-    return null;
-  }
+    @Override
+    public Player findByName(String name) {
+        try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            var criteriaQuery = criteriaBuilder.createQuery(Player.class);
+            var root = criteriaQuery.from(Player.class);
 
-  @Override
-  public Player create(Player entity) {
-    em.getTransaction().begin();
-    em.persist(entity);
-    em.getTransaction().commit();
-    return entity;
-  }
+            return em.createQuery(
+                    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("lastName"), name)))
+                    .getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
 
-  @Override
-  public Player update(Player entity) {
-    return null;
-  }
+    public Optional<Player> findByIdOptional(Integer integer) {
+        try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            var criteriaQuery = criteriaBuilder.createQuery(Player.class);
+            var root = criteriaQuery.from(Player.class);
+            return Optional.of(em.createQuery(
+                    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), integer)))
+                    .getSingleResult());
+        } catch (NoResultException ex) {
+            return Optional.empty();
+        }
+    }
 
-  @Override
-  public void delete(Integer integer) {}
+    public Optional<Player> findByNameOptional(String name) {
+
+        try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            var criteriaQuery = criteriaBuilder.createQuery(Player.class);
+            var root = criteriaQuery.from(Player.class);
+
+            return Optional.of(
+                    em.createQuery(
+                            criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("lastName"),
+                                    name)))
+                            .getSingleResult());
+        } catch (NoResultException ex) {
+            return Optional.empty();
+        }
+    }
 }

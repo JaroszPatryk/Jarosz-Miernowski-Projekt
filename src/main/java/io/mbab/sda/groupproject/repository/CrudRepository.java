@@ -1,6 +1,7 @@
 package io.mbab.sda.groupproject.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CrudRepository<T, ID> {
 
@@ -13,4 +14,6 @@ public interface CrudRepository<T, ID> {
   T update(T entity);
 
   void delete(ID id);
+
+  Optional<T> findByIdOptional(ID integer);
 }

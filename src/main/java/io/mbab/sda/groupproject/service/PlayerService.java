@@ -50,11 +50,7 @@ public class PlayerService implements CrudService<PlayerDto, Integer> {
             .collect(Collectors.toUnmodifiableList());
   }
 
-  @Override
-  public PlayerDto findById(Integer integer) {
 
-    return crudMapper.entityToDto(playerRepository.findById(integer));
-  }
 
   @Override
   public PlayerDto update(PlayerDto dto) {

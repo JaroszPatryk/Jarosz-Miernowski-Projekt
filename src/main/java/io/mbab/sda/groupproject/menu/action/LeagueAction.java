@@ -2,7 +2,6 @@ package io.mbab.sda.groupproject.menu.action;
 
 import io.mbab.sda.groupproject.dto.CountryDto;
 import io.mbab.sda.groupproject.dto.LeagueDto;
-import io.mbab.sda.groupproject.menu.MainAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.service.LeagueService;
 import lombok.RequiredArgsConstructor;

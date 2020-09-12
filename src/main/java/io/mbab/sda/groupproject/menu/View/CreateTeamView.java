@@ -3,25 +3,19 @@ package io.mbab.sda.groupproject.menu.View;
 import io.mbab.sda.groupproject.dto.CountryDto;
 import io.mbab.sda.groupproject.dto.LeagueDto;
 import io.mbab.sda.groupproject.dto.TeamDto;
-import io.mbab.sda.groupproject.entity.Country;
-import io.mbab.sda.groupproject.entity.League;
-import io.mbab.sda.groupproject.entity.Team;
 import io.mbab.sda.groupproject.menu.CustomScanner;
-import io.mbab.sda.groupproject.menu.MenuAction;
+import io.mbab.sda.groupproject.menu.action.MenuAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
-import io.mbab.sda.groupproject.menu.action.LeagueAction;
 import io.mbab.sda.groupproject.menu.action.TeamAction;
-import io.mbab.sda.groupproject.service.LeagueService;
-import io.mbab.sda.groupproject.service.TeamService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ViewCreateTeam implements MenuAction {
+public class CreateTeamView implements MenuAction {
 
   private final TeamAction teamAction;
   private final CustomScanner cs;
   private final MenuActionContext ctx;
-  private final ViewCreateLeague viewCreateLeague;
+  private final CreateLeagueView createLeagueView;
 
   @Override
   public void execute() {
@@ -54,7 +48,7 @@ public class ViewCreateTeam implements MenuAction {
     if (league == null) {
       System.out.println("Podałeś nową nazwę ligi.");
       System.out.println("Dodaj nową ligę albo wciśnij '0'.");
-      league = viewCreateLeague.createLeague(leagueName);
+      league = createLeagueView.createLeague(leagueName);
     }
 
     System.out.println("!!! TWORZYSZ NOWĄ DRUŻYNĘ !!!");

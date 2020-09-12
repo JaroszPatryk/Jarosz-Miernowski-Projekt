@@ -2,17 +2,15 @@ package io.mbab.sda.groupproject.menu.View;
 
 import io.mbab.sda.groupproject.dto.CountryDto;
 import io.mbab.sda.groupproject.dto.LeagueDto;
-import io.mbab.sda.groupproject.entity.Country;
-import io.mbab.sda.groupproject.entity.League;
 import io.mbab.sda.groupproject.menu.CustomScanner;
-import io.mbab.sda.groupproject.menu.MenuAction;
+import io.mbab.sda.groupproject.menu.action.MenuAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.menu.action.LeagueAction;
 import io.mbab.sda.groupproject.service.CountryService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ViewCreateLeague implements MenuAction {
+public class CreateLeagueView implements MenuAction {
 
   private final CustomScanner cs;
   private final LeagueAction leagueAction;

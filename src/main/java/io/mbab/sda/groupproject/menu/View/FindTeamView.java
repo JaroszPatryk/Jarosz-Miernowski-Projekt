@@ -2,7 +2,7 @@ package io.mbab.sda.groupproject.menu.View;
 
 import io.mbab.sda.groupproject.entity.Team;
 import io.mbab.sda.groupproject.menu.CustomScanner;
-import io.mbab.sda.groupproject.menu.MenuAction;
+import io.mbab.sda.groupproject.menu.action.MenuAction;
 import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.menu.action.TeamAction;
 import io.mbab.sda.groupproject.repository.TeamRepository;
@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class ViewTeam implements MenuAction {
+public class FindTeamView implements MenuAction {
 
   private final TeamAction teamAction;
   private final CustomScanner cs;

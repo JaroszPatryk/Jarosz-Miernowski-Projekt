@@ -1,5 +1,7 @@
-package io.mbab.sda.groupproject.menu;
+package io.mbab.sda.groupproject.menu.action;
 
+import io.mbab.sda.groupproject.menu.CustomScanner;
+import io.mbab.sda.groupproject.menu.MenuActionContext;
 import io.mbab.sda.groupproject.menu.View.*;
 import lombok.RequiredArgsConstructor;
 
@@ -30,32 +32,32 @@ public class MainAction implements MenuAction {
     }
 
     if (input.equals("1")) {
-      ctx.use(ViewCreatePlayer.class).execute();
+      ctx.use(CreatePlayerView.class).execute();
       return;
     }
 
     if (input.equals("2")) {
-      ctx.use(ViewCreateTeam.class).execute();
+      ctx.use(CreateTeamView.class).execute();
       return;
     }
 
     if (input.equals("3")) {
-      ctx.use(ViewCreateLeague.class).execute();
+      ctx.use(CreateLeagueView.class).execute();
       return;
     }
 
     if (input.equals("4")) {
-      ctx.use(ViewPlayer.class).execute();
+      ctx.use(FindPlayerView.class).execute();
       return;
     }
 
     if (input.equals("5")) {
-      ctx.use(ViewTeam.class).execute();
+      ctx.use(FindTeamView.class).execute();
       return;
     }
 
     if (input.equals("6")) {
-      ctx.use(ViewLeague.class).execute();
+      ctx.use(FindLeagueView.class).execute();
       return;
     }
 
